@@ -6,9 +6,9 @@ import Link from 'next/link';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { projects, Project } from '@/lib/data';
 import { Lightbox } from '@/components/Lightbox';
-import { Playlist } from '@/components/Playlist';
+
 import { Collectors } from '@/components/Collectors';
-import { ArrowRight, Volume2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   const [activeYear, setActiveYear] = useState('2018');
@@ -408,8 +408,6 @@ export default function HomePage() {
         </footer>
       </div>
 
-      {/* AMBIENT SOUND PLAYER */}
-      <Playlist />
 
       {/* FULLSCREEN LIGHTBOX */}
       <Lightbox
