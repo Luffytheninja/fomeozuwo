@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useSearchParams } from 'next/navigation';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
@@ -20,7 +20,6 @@ export default function HomePage() {
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const yearRefs = useRef<Record<string, HTMLDivElement | null>>({});
-  const searchParams = useSearchParams();
 
   // Scroll to #contact if navigated from another page via /#contact
   useEffect(() => {
