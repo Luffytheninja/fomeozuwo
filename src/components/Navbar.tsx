@@ -1,15 +1,24 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const scrollToContact = () => {
+    if (pathname === '/') {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      router.push('/#contact');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,18 +75,12 @@ export function Navbar() {
               </Link>
             );
           })}
-          <a
-            href="#contact"
+          <button
             className="text-[11px] uppercase tracking-widest text-accent-olive opacity-80 hover:opacity-100 font-semibold transition-opacity"
-            onClick={(e) => {
-              if (pathname === '/') {
-                e.preventDefault();
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
+            onClick={scrollToContact}
           >
             Contact
-          </a>
+          </button>
         </nav>
 
         {/* Mobile Toggle */}
@@ -133,18 +136,21 @@ export function Navbar() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: navLinks.length * 0.08, ease: [0.25, 1, 0.5, 1] }}
               >
-                <a
-                  href="#contact"
+                <button
                   onClick={() => {
                     setIsOpen(false);
-                    setTimeout(() => {
-                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                    }, 300);
+                    if (pathname === '/') {
+                      setTimeout(() => {
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      }, 400);
+                    } else {
+                      router.push('/#contact');
+                    }
                   }}
-                  className="text-4xl font-editorial-serif font-light text-accent-olive italic"
+                  className="text-4xl font-editorial-serif font-light text-accent-olive italic text-left"
                 >
                   Contact
-                </a>
+                </button>
               </motion.div>
             </nav>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
@@ -19,6 +20,16 @@ export default function HomePage() {
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const yearRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const searchParams = useSearchParams();
+
+  // Scroll to #contact if navigated from another page via /#contact
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash === '#contact') {
+      setTimeout(() => {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+    }
+  }, []);
 
   // Parallax scroll setup for Hero Image
   const heroRef = useRef<HTMLDivElement>(null);
