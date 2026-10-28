@@ -44,6 +44,7 @@ export default function HomePage() {
 
   // Distinct Collections list
   const collectionsList = [
+    { name: 'The Art of Everyday Life', label: 'Twelve humane encounters across labour, solitude, and companionship (1/1 Editions)' },
     { name: 'Seeing', label: 'Inquiries into urban geometry and direct vision' },
     { name: 'Light Studies', label: 'Meditations on volumetric sunbeams and gradients' },
     { name: 'Portraits', label: 'The human face as a record of historical navigation' },
@@ -100,8 +101,8 @@ export default function HomePage() {
         {/* Parallax Background Artwork */}
         <motion.div style={{ y: heroBgY }} className="absolute inset-0 w-full h-full opacity-60">
           <Image
-            src="/images/photography/WINDOW TO MY WORLD 1.webp"
-            alt="Window to My World I"
+            src="/images/photography/art-of-everyday-life/OE-PH010_face-to-face-conversation.webp"
+            alt="Face to Face Conversation"
             fill
             className="object-cover"
             priority
@@ -314,8 +315,8 @@ export default function HomePage() {
               {[
                 { title: 'Fine Art beginnings', year: 'Before 2012', desc: 'Developing a structural understanding of weight and space on canvas, inspired by local Lagos environments.' },
                 { title: 'Agency Life & Creative Direction', year: '2012 — 2018', desc: 'Heading creative campaigns and identity designs for international brands. A period dedicated to visual communication, layouts, and storytelling.' },
-                { title: 'Return to Art & Painting', year: '2018 — 2023', desc: 'Leaving commercial agencies to reclaim physical craft. Establishing a dedicated Lagos studio, exploring oil pigments and the impasto techniques of "The Drummers".' },
-                { title: 'Expanding Vision: Photography', year: '2024 — Present', desc: 'Introducing digital photography to capture fleeting lighting patterns, building diptych collections on Broad Street and coastal canoe parks.' }
+                { title: 'The Art of Everyday Life: Photography', year: '2016 — 2020', desc: 'Compiling the seminal fine-art photographic suite "The Art of Everyday Life" (Humanised Landscape): original captures reinterpreted through digital washes and selective color, committed as unique 1/1 physical editions.' },
+                { title: 'Return to Art & Painting', year: '2018 — Present', desc: 'Focusing on physical craft in the Lagos studio, exploring oil pigments, textured board, and the impasto techniques of "The Drummers".' }
               ].map((chapter, idx) => (
                 <div key={chapter.title} className="mb-16 relative last:mb-0">
                   {/* Timeline node */}

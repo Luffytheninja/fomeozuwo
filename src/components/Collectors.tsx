@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Download } from 'lucide-react';
 
 export function Collectors() {
   return (
@@ -13,8 +14,20 @@ export function Collectors() {
               For Discerning Collectors.
             </h2>
           </div>
-          <div className="hidden lg:block text-xs text-muted max-w-xs leading-relaxed mt-12">
-            Every acquisition represents a long-term investment in atmosphere, supported by rigorous logistical and artistic standards.
+          <div className="text-xs text-muted max-w-xs leading-relaxed mt-12 space-y-4">
+            <p>
+              Every acquisition represents a long-term investment in atmosphere, supported by rigorous logistical and artistic standards.
+            </p>
+            <a
+              href="/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
+              download="Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-foreground hover:text-accent-olive transition-colors pt-2 border-b border-foreground/30 pb-1"
+            >
+              <Download size={13} />
+              Download Gallery Catalogue (PDF)
+            </a>
           </div>
         </div>
 
@@ -29,7 +42,7 @@ export function Collectors() {
             <span className="text-[10px] font-mono text-muted">01 / PROVENANCE</span>
             <h3 className="font-serif text-lg italic text-foreground">Provenance & Authenticity</h3>
             <p className="text-xs text-muted leading-relaxed">
-              All original paintings and limited-edition prints are hand-signed by the artist and accompanied by a custom, serial-numbered Certificate of Authenticity.
+              All original paintings and 1/1 unique fine-art prints are signed by the artist and accompanied by a custom, serial-numbered Certificate of Authenticity and Object Record.
             </p>
           </motion.div>
 
@@ -57,7 +70,7 @@ export function Collectors() {
             <span className="text-[10px] font-mono text-muted">03 / VIEWINGS</span>
             <h3 className="font-serif text-lg italic text-foreground">Private Dialogues</h3>
             <p className="text-xs text-muted leading-relaxed">
-              Private studio visits in Lagos and digital viewings of works-in-progress can be arranged for curators, architects, and collectors upon request.
+              Private studio visits in Lagos and digital viewings of works can be arranged for curators, architects, and collectors upon request (<a href="mailto:fomeozuwobss@gmail.com" className="underline hover:text-foreground">fomeozuwobss@gmail.com</a>).
             </p>
           </motion.div>
         </div>
