@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
@@ -6,17 +6,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project, projects, artists, catalogues } from '@/lib/data';
 import { Lightbox } from '@/components/Lightbox';
-import { 
-  Download, 
-  Search, 
-  Grid, 
-  List, 
-  ArrowRight, 
-  Maximize2, 
-  FileText,
-  Filter,
-  X
-} from 'lucide-react';
+import { Mail, Search, Grid, List, ArrowRight, Maximize2, FileText, Filter, X } from 'lucide-react';
 
 interface DirectoryProps {
   initialArtist?: string;
@@ -103,7 +93,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
               Official Documentation
             </span>
             <h3 className="text-xl md:text-2xl font-serif italic text-foreground">
-              Collection Catalogues & PDFs
+              Collection Catalogues
             </h3>
           </div>
           <span className="text-xs text-muted font-mono">
@@ -142,14 +132,11 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
 
                 <div className="flex items-center gap-2 pt-3 border-t border-border/40">
                   <a
-                    href={cat.pdfPath}
-                    download={cat.pdfFilename}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + cat.title)}`}
                     className="flex-1 inline-flex items-center justify-center gap-1.5 py-1.5 px-3 bg-[#1A1A1A] hover:bg-black text-[#F8F7F4] text-[10px] font-mono uppercase tracking-wider transition-colors"
                   >
-                    <Download size={11} />
-                    <span>PDF</span>
+                    <Mail size={11} />
+                    <span>Request</span>
                   </a>
                   <button
                     onClick={() => setSelectedArtist(isSelected ? 'all' : cat.artistSlug)}
@@ -334,14 +321,11 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
 
             <div className="shrink-0 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
               <a
-                href={activeCatalogue.pdfPath}
-                download={activeCatalogue.pdfFilename}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + activeCatalogue.title)}`}
                 className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#1A1A1A] hover:bg-black text-[#F8F7F4] text-xs font-mono uppercase tracking-wider transition-colors shadow-xs"
               >
-                <Download size={13} />
-                Download Catalogue (PDF)
+                <Mail size={13} />
+                Request Catalogue
               </a>
             </div>
           </motion.div>
@@ -441,19 +425,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
                       <ArrowRight size={11} />
                     </Link>
 
-                    {project.pdfPath && (
-                      <a
-                        href={project.pdfPath}
-                        download={project.pdfFilename}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-muted hover:text-foreground transition-colors"
-                        title="Download Catalogue PDF"
-                      >
-                        <Download size={10} />
-                        <span>PDF</span>
-                      </a>
-                    )}
+                    
                   </div>
                 </div>
 
@@ -518,18 +490,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
                       >
                         <ArrowRight size={13} />
                       </Link>
-                      {project.pdfPath && (
-                        <a
-                          href={project.pdfPath}
-                          download={project.pdfFilename}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-muted hover:text-foreground transition-colors"
-                          title="Download Catalogue PDF"
-                        >
-                          <Download size={13} />
-                        </a>
-                      )}
+                      
                     </div>
                   </td>
                 </tr>
@@ -549,3 +510,4 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
     </div>
   );
 }
+

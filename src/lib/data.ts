@@ -21,8 +21,6 @@ export interface Project {
   aspectRatio: 'portrait' | 'landscape' | 'square';
   detailCrops?: DetailCrop[];
   edition?: string;
-  pdfPath?: string;
-  pdfFilename?: string;
 }
 
 export interface Artist {
@@ -34,8 +32,6 @@ export interface Artist {
   category: 'painting' | 'photography' | 'all';
   worksCount: number;
   catalogueTitle: string;
-  pdfPath: string;
-  pdfFilename: string;
   coverImage: string;
 }
 
@@ -49,8 +45,6 @@ export interface Catalogue {
   period: string;
   category: 'painting' | 'photography';
   worksCount: number;
-  pdfPath: string;
-  pdfFilename: string;
   contactEmail: string;
   editionPolicy: string;
   coverImage: string;
@@ -67,8 +61,6 @@ export const artists: Artist[] = [
     category: 'painting',
     worksCount: 6,
     catalogueTitle: 'The Early Patronage Collection',
-    pdfPath: '/Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf',
-    pdfFilename: 'Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf',
     coverImage: '/images/paintings/early-patronage/KA-03_traditional-musicians.webp'
   },
   {
@@ -80,8 +72,6 @@ export const artists: Artist[] = [
     category: 'painting',
     worksCount: 13,
     catalogueTitle: 'Figures, Line & the Living Surface',
-    pdfPath: '/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf',
-    pdfFilename: 'Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf',
     coverImage: '/images/collections/akinwolere/ma-05.webp'
   },
   {
@@ -93,8 +83,6 @@ export const artists: Artist[] = [
     category: 'painting',
     worksCount: 36,
     catalogueTitle: 'Works from a Private Nigerian Collection',
-    pdfPath: '/Johnson Shobowal International Gallery Catalogue.pdf',
-    pdfFilename: 'Johnson Shobowal International Gallery Catalogue.pdf',
     coverImage: '/images/collections/shobowale/jbs-002.webp'
   },
   {
@@ -106,8 +94,6 @@ export const artists: Artist[] = [
     category: 'photography',
     worksCount: 12,
     catalogueTitle: 'The Art of Everyday Life',
-    pdfPath: '/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf',
-    pdfFilename: 'Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf',
     coverImage: '/images/photography/art-of-everyday-life/OE-PH010_face-to-face-conversation.webp'
   }
 ];
@@ -122,8 +108,6 @@ export const catalogues: Catalogue[] = [
     period: '2006–2007',
     category: 'painting',
     worksCount: 6,
-    pdfPath: '/Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf',
-    pdfFilename: 'Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf',
     contactEmail: 'fomeozuwobss@gmail.com',
     editionPolicy: 'Original physical paintings, direct student patronage acquisition',
     coverImage: '/images/paintings/early-patronage/KA-03_traditional-musicians.webp',
@@ -138,8 +122,6 @@ export const catalogues: Catalogue[] = [
     period: '2009 & 2013',
     category: 'painting',
     worksCount: 13,
-    pdfPath: '/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf',
-    pdfFilename: 'Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf',
     contactEmail: 'fomeozuwobss@gmail.com',
     editionPolicy: 'Original works on paper, direct collector acquisition',
     coverImage: '/images/collections/akinwolere/ma-05.webp',
@@ -154,8 +136,6 @@ export const catalogues: Catalogue[] = [
     period: '2013–2024',
     category: 'painting',
     worksCount: 36,
-    pdfPath: '/Johnson Shobowal International Gallery Catalogue.pdf',
-    pdfFilename: 'Johnson Shobowal International Gallery Catalogue.pdf',
     contactEmail: 'fomeozuwobss@gmail.com',
     editionPolicy: 'Original paintings, mixed media, and relief constructions with artist Certificates of Authenticity',
     coverImage: '/images/collections/shobowale/jbs-002.webp',
@@ -171,8 +151,6 @@ export const catalogues: Catalogue[] = [
     period: '2016–2020',
     category: 'photography',
     worksCount: 12,
-    pdfPath: '/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf',
-    pdfFilename: 'Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf',
     contactEmail: 'fomeozuwobss@gmail.com',
     editionPolicy: 'Unique 1/1 physical-print editions with Certificate of Authenticity and Object Record',
     coverImage: '/images/photography/art-of-everyday-life/OE-PH010_face-to-face-conversation.webp',
@@ -186,7 +164,6 @@ export const photographyCatalogue = {
   alias: 'Humanised Landscape',
   artist: 'Ozuwo Enifome',
   period: '2016–2020',
-  pdfPath: '/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf',
   contactEmail: 'fomeozuwobss@gmail.com',
   editionPolicy: 'Unique 1/1 physical-print editions',
   curatorialEssay: {
@@ -237,8 +214,6 @@ export const projects: Project[] = [
     "provenance": "Artist; acquired directly by Ozuwo Enifome through a patronage arrangement; private collection, Nigeria.",
     "image": "/images/paintings/early-patronage/KA-01_village-passage.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
-    "pdfFilename": "Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
     "detailCrops": [
       {
         "label": "Passage Light & Shadow",
@@ -266,8 +241,6 @@ export const projects: Project[] = [
     "provenance": "Artist; acquired directly by Ozuwo Enifome through a patronage arrangement; private collection, Nigeria.",
     "image": "/images/paintings/early-patronage/KA-02_the-historic-gateway.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
-    "pdfFilename": "Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
     "detailCrops": [
       {
         "label": "Gateway Arch & Sky",
@@ -295,8 +268,6 @@ export const projects: Project[] = [
     "provenance": "Artist; acquired directly by Ozuwo Enifome through a patronage arrangement; private collection, Nigeria.",
     "image": "/images/paintings/early-patronage/KA-03_traditional-musicians.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
-    "pdfFilename": "Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
     "detailCrops": [
       {
         "label": "Yellow Garment Brushstrokes",
@@ -324,8 +295,6 @@ export const projects: Project[] = [
     "provenance": "Artist; acquired directly by Ozuwo Enifome through a patronage arrangement; private collection, Nigeria.",
     "image": "/images/paintings/early-patronage/KA-04_courtyard-with-chickens.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
-    "pdfFilename": "Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
     "detailCrops": [
       {
         "label": "Sunlit Yard & Chickens",
@@ -353,8 +322,6 @@ export const projects: Project[] = [
     "provenance": "Artist; acquired directly by Ozuwo Enifome through a patronage arrangement; private collection, Nigeria.",
     "image": "/images/paintings/early-patronage/KA-05_rooftops-and-settlement.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
-    "pdfFilename": "Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
     "detailCrops": [
       {
         "label": "Slanting Roof Patterns",
@@ -382,8 +349,6 @@ export const projects: Project[] = [
     "provenance": "Artist; acquired directly by Ozuwo Enifome through a patronage arrangement; private collection, Nigeria.",
     "image": "/images/paintings/early-patronage/KA-06_the-quiet-road.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
-    "pdfFilename": "Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf",
     "detailCrops": [
       {
         "label": "Khaki Fabric Collage Texture",
@@ -411,8 +376,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-01.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-02",
@@ -430,8 +393,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-02.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-03",
@@ -449,8 +410,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-03.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-04",
@@ -468,8 +427,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-04.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-05",
@@ -487,8 +444,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-05.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
     "detailCrops": [
       {
         "label": "Enlarged Central Figure & Hand",
@@ -516,8 +471,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-06.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-07",
@@ -535,8 +488,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-07.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-08",
@@ -554,8 +505,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-08.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-09",
@@ -573,8 +522,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-09.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-10",
@@ -592,8 +539,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-10.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-11",
@@ -611,8 +556,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-11.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-12",
@@ -630,8 +573,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-12.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "ma-13",
@@ -649,8 +590,6 @@ export const projects: Project[] = [
     "provenance": "Collection of Ozuwo Enifome, Nigeria. Acquired directly from the artist.",
     "image": "/images/collections/akinwolere/ma-13.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf",
-    "pdfFilename": "Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf"
   },
   {
     "id": "jbs-001",
@@ -668,8 +607,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-001.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-002",
@@ -687,8 +624,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-002.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf",
     "detailCrops": [
       {
         "label": "Sawdust-Primed Incised Texture",
@@ -716,8 +651,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-003.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-004",
@@ -735,8 +668,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-004.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-005",
@@ -754,8 +685,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-005.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-006",
@@ -773,8 +702,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-006.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-007",
@@ -792,8 +719,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-007.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-008",
@@ -811,8 +736,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-008.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-009",
@@ -830,8 +753,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-009.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-010",
@@ -849,8 +770,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-010.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-011",
@@ -868,8 +787,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-011.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-012",
@@ -887,8 +804,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-012.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-013",
@@ -906,8 +821,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-013.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-014",
@@ -925,8 +838,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-014.webp",
     "aspectRatio": "square",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-015",
@@ -944,8 +855,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-015.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-016",
@@ -963,8 +872,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-016.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-017",
@@ -982,8 +889,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-017.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-018",
@@ -1001,8 +906,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-018.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-019",
@@ -1020,8 +923,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-019.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-020",
@@ -1039,8 +940,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-020.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-021",
@@ -1058,8 +957,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-021.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-022",
@@ -1077,8 +974,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-022.webp",
     "aspectRatio": "square",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-023",
@@ -1096,8 +991,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-023.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-024",
@@ -1115,8 +1008,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-024.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-025",
@@ -1134,8 +1025,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-025.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-026",
@@ -1153,8 +1042,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-026.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-027",
@@ -1172,8 +1059,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-027.webp",
     "aspectRatio": "square",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-028",
@@ -1191,8 +1076,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-028.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-029",
@@ -1210,8 +1093,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-029.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-030",
@@ -1229,8 +1110,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-030.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-031",
@@ -1248,8 +1127,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-031.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-032",
@@ -1267,8 +1144,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-032.webp",
     "aspectRatio": "square",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-033",
@@ -1286,8 +1161,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-033.webp",
     "aspectRatio": "square",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-034",
@@ -1305,8 +1178,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-034.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-035",
@@ -1324,8 +1195,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-035.webp",
     "aspectRatio": "square",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "jbs-036",
@@ -1343,8 +1212,6 @@ export const projects: Project[] = [
     "provenance": "Acquired directly from the artist; collection of Ozuwo Enifome, Nigeria. Accompanied by signed artist Certificate of Authenticity.",
     "image": "/images/collections/shobowale/jbs-036.webp",
     "aspectRatio": "square",
-    "pdfPath": "/Johnson Shobowal International Gallery Catalogue.pdf",
-    "pdfFilename": "Johnson Shobowal International Gallery Catalogue.pdf"
   },
   {
     "id": "oe-ph001",
@@ -1363,8 +1230,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH001_the-hopelessness-of-hope.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
     "detailCrops": [
       {
         "label": "Tonal Grey Dissolution",
@@ -1393,8 +1258,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH002_three-is-company.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
     "detailCrops": [
       {
         "label": "Shoulder-to-Shoulder Posture",
@@ -1423,8 +1286,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH003_untitled.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
   },
   {
     "id": "oe-ph004",
@@ -1443,8 +1304,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH004_friends.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
   },
   {
     "id": "oe-ph005",
@@ -1463,8 +1322,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH005_the-contrast-of-life-1.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
     "detailCrops": [
       {
         "label": "Brilliant Ochre Yellow Field",
@@ -1493,8 +1350,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH006_market-woman.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
   },
   {
     "id": "oe-ph007",
@@ -1513,8 +1368,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH007_the-contrast-of-life-2.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
   },
   {
     "id": "oe-ph008",
@@ -1533,8 +1386,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH008_fulani-woman.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
   },
   {
     "id": "oe-ph009",
@@ -1553,8 +1404,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH009_light-at-the-end-of-the-tunnel.webp",
     "aspectRatio": "portrait",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
   },
   {
     "id": "oe-ph010",
@@ -1573,8 +1422,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH010_face-to-face-conversation.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
     "detailCrops": [
       {
         "label": "Attentive Listening Choreography",
@@ -1603,8 +1450,6 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH011_kids-washing-by-the-banks.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
   },
   {
     "id": "oe-ph012",
@@ -1623,7 +1468,5 @@ export const projects: Project[] = [
     "provenance": "Original work by Ozuwo Enifome; issued as unique 1/1 physical fine-art print with signed Certificate of Authenticity and Object Record.",
     "image": "/images/photography/art-of-everyday-life/OE-PH012_argungu-sprint.webp",
     "aspectRatio": "landscape",
-    "pdfPath": "/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf",
-    "pdfFilename": "Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
   }
 ];

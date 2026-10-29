@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Download, FileText } from 'lucide-react';
+import { FileText, Mail } from 'lucide-react';
 import { catalogues } from '@/lib/data';
 
 export function Collectors() {
@@ -19,19 +19,16 @@ export function Collectors() {
             </p>
           </div>
 
-          {/* Download all 4 gallery catalogues */}
+          {/* all 4 gallery catalogues */}
           <div className="mt-8 space-y-3 pt-6 border-t border-border/60">
             <span className="text-[10px] font-mono uppercase tracking-widest text-muted block mb-2">
-              Official Gallery Catalogues (PDF)
+              Official Gallery Catalogues
             </span>
             <div className="flex flex-col gap-2">
               {catalogues.map((cat) => (
                 <a
                   key={cat.id}
-                  href={cat.pdfPath}
-                  download={cat.pdfFilename}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + cat.title)}`}
                   className="flex items-center justify-between p-2.5 bg-warm-gray/30 hover:bg-warm-gray/60 border border-border/70 transition-colors group"
                 >
                   <div className="flex flex-col pr-2">
@@ -43,8 +40,8 @@ export function Collectors() {
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-muted group-hover:text-foreground shrink-0">
-                    <Download size={12} />
-                    <span>PDF</span>
+                    <Mail size={12} />
+                    <span>Request</span>
                   </div>
                 </a>
               ))}

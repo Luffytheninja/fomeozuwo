@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { projects, photographyCatalogue, Project } from '@/lib/data';
 import { Lightbox } from '@/components/Lightbox';
 import { Collectors } from '@/components/Collectors';
-import { Download, FileText, ChevronDown, ChevronUp, ArrowRight, Eye, Mail } from 'lucide-react';
+import { FileText, ChevronDown, ChevronUp, ArrowRight, Eye, Mail } from 'lucide-react';
 
 export default function PhotographyPage() {
   const photos = projects.filter((p) => p.category === 'photography');
@@ -60,17 +60,14 @@ export default function PhotographyPage() {
           singular physical fine-art prints.
         </p>
 
-        {/* Catalogue Download & Inquiry Buttons */}
+        {/* Catalogue & Inquiry Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
           <a
-            href={photographyCatalogue.pdfPath}
-            download="Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#1A1A1A] text-[#F8F7F4] hover:bg-black transition-editorial font-medium tracking-wide shadow-sm group"
+            href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: Humanised Landscape Gallery Catalogue")}`}
+            className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/30 text-white hover:bg-white/10 text-xs font-mono uppercase tracking-wider transition-colors group"
           >
-            <Download size={15} className="group-hover:translate-y-0.5 transition-transform" />
-            <span>Download Gallery Catalogue (PDF)</span>
+            <Mail size={15} className="group-hover:translate-y-0.5 transition-transform" />
+            <span>Request Gallery Catalogue</span>
           </a>
 
           <a
@@ -292,15 +289,12 @@ export default function PhotographyPage() {
               </h3>
             </div>
             <a
-              href={photographyCatalogue.pdfPath}
-              download="Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xs font-mono tracking-wider uppercase underline underline-offset-4 hover:text-accent-olive transition-colors"
-            >
-              <FileText size={14} />
-              View Catalogue Document
-            </a>
+            href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: Humanised Landscape Gallery Catalogue")}`}
+            className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/30 text-white hover:bg-white/10 text-xs font-mono uppercase tracking-wider transition-colors group"
+          >
+            <Mail size={15} className="group-hover:translate-y-0.5 transition-transform" />
+            <span>Request Gallery Catalogue</span>
+          </a>
           </div>
 
           <p className="text-sm text-muted leading-relaxed mb-6">

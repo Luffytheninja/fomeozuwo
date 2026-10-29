@@ -7,7 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { projects, catalogues, Project } from '@/lib/data';
 import { Lightbox } from '@/components/Lightbox';
 import { Collectors } from '@/components/Collectors';
-import { ArrowLeft, ArrowRight, Maximize2, Download, Mail, ShieldCheck, Tag } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Maximize2, Mail, ShieldCheck, Tag } from 'lucide-react';
 
 export default function ProjectPage() {
   const params = useParams();
@@ -68,18 +68,13 @@ export default function ProjectPage() {
           Back to {currentProject.category === 'painting' ? 'Paintings' : 'Photography'}
         </Link>
 
-        {currentProject.pdfPath && (
-          <a
-            href={currentProject.pdfPath}
-            download={currentProject.pdfFilename}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3 py-1.5 border border-border/80 hover:border-foreground/60 text-[11px] font-mono tracking-wider uppercase text-foreground transition-colors"
-          >
-            <Download size={13} />
-            <span>Catalogue PDF ({currentProject.artist.split(' ')[0]})</span>
-          </a>
-        )}
+        <a
+              href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + (relatedCatalogue?.title || "EOE Collection"))}`}
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-mono uppercase tracking-wider border border-foreground/30 hover:bg-foreground hover:text-background transition-colors"
+            >
+              <Mail size={13} />
+              Request Catalogue
+            </a>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start mb-32">
@@ -158,18 +153,13 @@ export default function ProjectPage() {
                 Inquire on Acquisition
               </a>
 
-              {currentProject.pdfPath && (
-                <a
-                  href={currentProject.pdfPath}
-                  download={currentProject.pdfFilename}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-border hover:border-foreground/60 transition-editorial text-xs tracking-wider uppercase font-mono text-foreground"
-                >
-                  <Download size={13} />
-                  Download Complete Catalogue (PDF)
-                </a>
-              )}
+              <a
+              href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + (relatedCatalogue?.title || "EOE Collection"))}`}
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-mono uppercase tracking-wider border border-foreground/30 hover:bg-foreground hover:text-background transition-colors"
+            >
+              <Mail size={13} />
+              Request Catalogue
+            </a>
 
               <div className="flex items-center gap-2 text-[11px] text-muted/80 pt-2">
                 <ShieldCheck size={14} className="text-accent-olive shrink-0" />

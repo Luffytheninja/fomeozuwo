@@ -58,6 +58,9 @@ crops_dict = {
 for p in projects:
     if p["id"] in crops_dict:
         p["detailCrops"] = crops_dict[p["id"]]
+    # Strip any public pdf references to preserve owner privacy
+    p.pop("pdfPath", None)
+    p.pop("pdfFilename", None)
 
 ts_code = '''export interface DetailCrop {
   label: string;
@@ -82,8 +85,6 @@ export interface Project {
   aspectRatio: 'portrait' | 'landscape' | 'square';
   detailCrops?: DetailCrop[];
   edition?: string;
-  pdfPath?: string;
-  pdfFilename?: string;
 }
 
 export interface Artist {
@@ -95,8 +96,6 @@ export interface Artist {
   category: 'painting' | 'photography' | 'all';
   worksCount: number;
   catalogueTitle: string;
-  pdfPath: string;
-  pdfFilename: string;
   coverImage: string;
 }
 
@@ -110,9 +109,9 @@ export interface Catalogue {
   period: string;
   category: 'painting' | 'photography';
   worksCount: number;
-  pdfPath: string;
-  pdfFilename: string;
   contactEmail: string;
+  requestSubject: string;
+  accessPolicy: string;
   editionPolicy: string;
   coverImage: string;
   curatorialSummary: string;
@@ -128,8 +127,6 @@ export const artists: Artist[] = [
     category: 'painting',
     worksCount: 6,
     catalogueTitle: 'The Early Patronage Collection',
-    pdfPath: '/Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf',
-    pdfFilename: 'Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf',
     coverImage: '/images/paintings/early-patronage/KA-03_traditional-musicians.webp'
   },
   {
@@ -141,8 +138,6 @@ export const artists: Artist[] = [
     category: 'painting',
     worksCount: 13,
     catalogueTitle: 'Figures, Line & the Living Surface',
-    pdfPath: '/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf',
-    pdfFilename: 'Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf',
     coverImage: '/images/collections/akinwolere/ma-05.webp'
   },
   {
@@ -154,8 +149,6 @@ export const artists: Artist[] = [
     category: 'painting',
     worksCount: 36,
     catalogueTitle: 'Works from a Private Nigerian Collection',
-    pdfPath: '/Johnson Shobowal International Gallery Catalogue.pdf',
-    pdfFilename: 'Johnson Shobowal International Gallery Catalogue.pdf',
     coverImage: '/images/collections/shobowale/jbs-002.webp'
   },
   {
@@ -167,8 +160,6 @@ export const artists: Artist[] = [
     category: 'photography',
     worksCount: 12,
     catalogueTitle: 'The Art of Everyday Life',
-    pdfPath: '/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf',
-    pdfFilename: 'Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf',
     coverImage: '/images/photography/art-of-everyday-life/OE-PH010_face-to-face-conversation.webp'
   }
 ];
@@ -183,9 +174,9 @@ export const catalogues: Catalogue[] = [
     period: '2006–2007',
     category: 'painting',
     worksCount: 6,
-    pdfPath: '/Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf',
-    pdfFilename: 'Kelani_Abass_Early_Patronage_Collection_2006-2007.pdf',
     contactEmail: 'fomeozuwobss@gmail.com',
+    requestSubject: 'Catalogue Inquiry: Kelani Abass Early Patronage Collection',
+    accessPolicy: 'Private catalogue dossier available to curators, institutions, and collectors upon request',
     editionPolicy: 'Original physical paintings, direct student patronage acquisition',
     coverImage: '/images/paintings/early-patronage/KA-03_traditional-musicians.webp',
     curatorialSummary: 'Six early paintings from the period around Kelani Abass’s graduation with distinction from Yaba College of Technology, capturing architecture, performance, and the everyday.'
@@ -199,9 +190,9 @@ export const catalogues: Catalogue[] = [
     period: '2009 & 2013',
     category: 'painting',
     worksCount: 13,
-    pdfPath: '/Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf',
-    pdfFilename: 'Muyiwa_Akinwolere_International_Gallery_Catalogue_Review.pdf',
     contactEmail: 'fomeozuwobss@gmail.com',
+    requestSubject: 'Catalogue Inquiry: Muyiwa Akinwolere Collection',
+    accessPolicy: 'Private catalogue dossier available to curators, institutions, and collectors upon request',
     editionPolicy: 'Original works on paper, direct collector acquisition',
     coverImage: '/images/collections/akinwolere/ma-05.webp',
     curatorialSummary: 'Thirteen works across gouache, acrylic, and ink exploring figuration, liquid line, and abstract invention in the Osogbo/Ife lineage.'
@@ -215,9 +206,9 @@ export const catalogues: Catalogue[] = [
     period: '2013–2024',
     category: 'painting',
     worksCount: 36,
-    pdfPath: '/Johnson Shobowal International Gallery Catalogue.pdf',
-    pdfFilename: 'Johnson Shobowal International Gallery Catalogue.pdf',
     contactEmail: 'fomeozuwobss@gmail.com',
+    requestSubject: 'Catalogue Inquiry: Johnson Babatunde Shobowale Collection',
+    accessPolicy: 'Private catalogue dossier available to curators, institutions, and collectors upon request',
     editionPolicy: 'Original paintings, mixed media, and relief constructions with artist Certificates of Authenticity',
     coverImage: '/images/collections/shobowale/jbs-002.webp',
     curatorialSummary: 'A 12-year retrospective of direct patronage exploring sawdust-prepared surfaces, metal-foil reliefs, pastel studies, and cultural memory.'
@@ -232,9 +223,9 @@ export const catalogues: Catalogue[] = [
     period: '2016–2020',
     category: 'photography',
     worksCount: 12,
-    pdfPath: '/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf',
-    pdfFilename: 'Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf',
     contactEmail: 'fomeozuwobss@gmail.com',
+    requestSubject: 'Catalogue Inquiry: The Art of Everyday Life Photography',
+    accessPolicy: 'Private catalogue dossier available to curators, institutions, and collectors upon request',
     editionPolicy: 'Unique 1/1 physical-print editions with Certificate of Authenticity and Object Record',
     coverImage: '/images/photography/art-of-everyday-life/OE-PH010_face-to-face-conversation.webp',
     curatorialSummary: 'Twelve humane encounters across labour, belonging, solitude, companionship, and hope in urban and coastal Nigeria.'
@@ -247,7 +238,6 @@ export const photographyCatalogue = {
   alias: 'Humanised Landscape',
   artist: 'Ozuwo Enifome',
   period: '2016–2020',
-  pdfPath: '/Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf',
   contactEmail: 'fomeozuwobss@gmail.com',
   editionPolicy: 'Unique 1/1 physical-print editions',
   curatorialEssay: {
@@ -286,4 +276,4 @@ export const projects: Project[] = ''' + json.dumps(projects, indent=2, ensure_a
 with open("src/lib/data.ts", "w", encoding="utf-8") as f:
     f.write(ts_code)
 
-print("Generated src/lib/data.ts successfully!")
+print("Generated src/lib/data.ts without public PDF downloads!")

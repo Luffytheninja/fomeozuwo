@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { projects, artists, catalogues, Project } from '@/lib/data';
 import { Lightbox } from '@/components/Lightbox';
 import { Collectors } from '@/components/Collectors';
-import { ArrowRight, Maximize2, Download, FileText, Sparkles, Filter } from 'lucide-react';
+import { ArrowRight, Maximize2, FileText, Sparkles, Filter, Mail } from 'lucide-react';
 
 export default function PaintingPage() {
   const allPaintings = projects.filter((p) => p.category === 'painting');
@@ -89,18 +89,15 @@ export default function PaintingPage() {
 
         {activeCatalogue ? (
           <a
-            href={activeCatalogue.pdfPath}
-            download={activeCatalogue.pdfFilename}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-foreground hover:text-accent-olive transition-colors shrink-0"
+            href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + activeCatalogue.title)}`}
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#1A1A1A] hover:bg-black text-[#F8F7F4] text-xs font-mono uppercase tracking-wider transition-colors shadow-xs"
           >
-            <Download size={13} />
-            <span>Download {activeArtist?.name.split(' ')[0]} Catalogue (PDF)</span>
+            <Mail size={13} />
+            Request Catalogue
           </a>
         ) : (
           <span className="text-xs font-mono text-muted">
-            Select an artist to download dedicated catalogue
+            Select an artist to request the dedicated catalogue
           </span>
         )}
       </div>
@@ -138,15 +135,12 @@ export default function PaintingPage() {
 
             <div className="lg:col-span-4 flex flex-col items-start lg:items-end justify-center gap-4">
               <a
-                href={activeCatalogue.pdfPath}
-                download={activeCatalogue.pdfFilename}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#1A1A1A] hover:bg-black text-[#F8F7F4] text-xs font-mono uppercase tracking-wider transition-all shadow-sm"
-              >
-                <Download size={14} />
-                <span>Download Catalogue PDF</span>
-              </a>
+            href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + activeCatalogue.title)}`}
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#1A1A1A] hover:bg-black text-[#F8F7F4] text-xs font-mono uppercase tracking-wider transition-colors shadow-xs"
+          >
+            <Mail size={13} />
+            Request Catalogue
+          </a>
               <span className="text-[10px] font-mono text-muted">
                 {activeArtist.worksCount} documented artworks in catalogue
               </span>
@@ -245,19 +239,6 @@ export default function PaintingPage() {
                     <span>View Work Particulars</span>
                     <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
-
-                  {painting.pdfPath && (
-                    <a
-                      href={painting.pdfPath}
-                      download={painting.pdfFilename}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-muted hover:text-foreground transition-colors"
-                    >
-                      <Download size={12} />
-                      <span>Catalogue PDF</span>
-                    </a>
-                  )}
                 </div>
               </div>
             </article>

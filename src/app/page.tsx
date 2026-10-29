@@ -7,7 +7,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { projects, artists, catalogues } from '@/lib/data';
 import { Directory } from '@/components/Directory';
 import { Collectors } from '@/components/Collectors';
-import { Download, ArrowDown, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowDown, ArrowRight, Mail, ShieldCheck, Sparkles } from 'lucide-react';
 
 export default function HomePage() {
   // Parallax scroll setup for Hero Image
@@ -94,8 +94,8 @@ export default function HomePage() {
                 }}
                 className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 hover:border-white text-[#F8F7F4] text-xs font-mono uppercase tracking-wider transition-all"
               >
-                <Download size={13} />
-                <span>Download Catalogues (PDF)</span>
+                <ArrowDown size={13} />
+                <span>Explore Catalogues</span>
               </button>
             </div>
           </div>
@@ -168,15 +168,12 @@ export default function HomePage() {
 
                   <div className="flex items-center gap-2 pt-2">
                     <a
-                      href={cat.pdfPath}
-                      download={cat.pdfFilename}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-2 py-2 px-3 bg-[#1A1A1A] hover:bg-black text-[#F8F7F4] text-xs font-mono uppercase tracking-wider transition-colors shadow-xs"
-                    >
-                      <Download size={12} />
-                      <span>Catalogue PDF</span>
-                    </a>
+                    href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + cat.title)}`}
+                    className="inline-flex items-center gap-2 px-4 py-2 text-xs font-mono uppercase tracking-wider border border-[#F8F7F4]/40 text-[#F8F7F4] hover:bg-[#F8F7F4]/10 transition-colors"
+                  >
+                    <Mail size={12} />
+                    Request Catalogue
+                  </a>
 
                     <Link
                       href={cat.category === 'painting' ? '/painting' : '/photography'}
@@ -198,7 +195,7 @@ export default function HomePage() {
             <span className="text-editorial-meta mb-3 block">Complete Archive</span>
             <h2 className="text-display-medium mb-4">Collection Directory</h2>
             <p className="text-sm text-muted leading-relaxed">
-              Explore the entire inventory of 67 authenticated works. Filter across artists, mediums, and production years, or download corresponding PDF publications directly.
+              Explore the entire inventory of 67 authenticated works. Filter across artists, mediums, and production years, or request corresponding curatorial publications directly.
             </p>
           </div>
 
