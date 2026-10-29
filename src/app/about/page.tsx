@@ -100,14 +100,26 @@ export default function AboutPage() {
           </div>
 
           {/* Chapter 7 */}
-          <div className="relative">
+          <div className="mb-20 relative">
             <div className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-background border border-border flex items-center justify-center">
               <div className="w-1.5 h-1.5 rounded-full bg-accent-olive" />
             </div>
             <span className="text-xs font-mono text-muted mb-2 block">Chapter VII</span>
-            <h2 className="text-2xl font-editorial-serif italic text-foreground mb-4">Today</h2>
+            <h2 className="text-2xl font-editorial-serif italic text-foreground mb-4">Photography & The Everyday</h2>
             <p className="text-sm text-muted leading-relaxed max-w-md">
-              Operating a hybrid studio practice where painting and photography serve as reciprocal disciplines. A patient, ongoing archive of Lagos history, lighting, and community resilience.
+              Expanding into fine-art documentary photography with &ldquo;The Art of Everyday Life&rdquo; (2016–2020). Using original photography and digital artistic treatment to explore humane encounters, street labour, and quiet companionship in Nigeria.
+            </p>
+          </div>
+
+          {/* Chapter 8 */}
+          <div className="relative">
+            <div className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-background border border-border flex items-center justify-center">
+              <div className="w-1.5 h-1.5 rounded-full bg-accent-olive" />
+            </div>
+            <span className="text-xs font-mono text-muted mb-2 block">Chapter VIII</span>
+            <h2 className="text-2xl font-editorial-serif italic text-foreground mb-4">Patronage & The Private Archive</h2>
+            <p className="text-sm text-muted leading-relaxed max-w-md">
+              Beginning in 2006 with early student patronage for Kelani Abass at Yaba College of Technology, continuing with long-term direct collecting of Muyiwa Akinwolere and Johnson Babatunde Shobowale. Building an enduring archive of modern and contemporary Nigerian art documented across 4 landmark catalogues.
             </p>
           </div>
 
@@ -120,21 +132,21 @@ export default function AboutPage() {
           <div className="flex flex-col gap-4">
             <div className="relative w-full aspect-[3/4.5] bg-[#1A1A1A] flex flex-col justify-between p-8 text-[#F8F7F4] select-none overflow-hidden">
               <div className="flex justify-between items-start">
-                <span className="text-xs uppercase tracking-widest text-white/40">Studio Frame</span>
+                <span className="text-xs uppercase tracking-widest text-white/40">Archive Frame</span>
                 <span className="text-xs font-mono text-white/30">2026</span>
               </div>
               
               <div className="my-auto text-center border-y border-white/10 py-12">
-                <h3 className="text-4xl font-editorial-serif italic font-light">Enifome Ozuwo</h3>
-                <p className="text-[10px] uppercase tracking-widest text-white/50 mt-2">Visual Artist</p>
+                <h3 className="text-4xl font-editorial-serif italic font-light">Ozuwo Enifome</h3>
+                <p className="text-[10px] uppercase tracking-widest text-white/50 mt-2">Visual Artist & Patron</p>
               </div>
 
-              <div className="text-right text-[10px] text-white/40">
-                Lagos Studio Portrait Space
+              <div className="text-right text-[10px] text-white/40 font-mono">
+                The Ozuwo Enifome Collection &middot; Lagos
               </div>
             </div>
             <span className="text-[10px] uppercase tracking-wider text-muted font-mono">
-              Portrait: Enifome Ozuwo (EOE)
+              The Ozuwo Enifome Collection
             </span>
           </div>
 
@@ -142,15 +154,15 @@ export default function AboutPage() {
           <div className="flex flex-col gap-4">
             <div className="relative w-full aspect-[4/3] bg-warm-gray/25 overflow-hidden">
               <Image
-                src="/images/photography/WINDOW TO MY WORLD 2.webp"
-                alt="Studio window light beam"
+                src="/images/photography/art-of-everyday-life/OE-PH010_face-to-face-conversation.webp"
+                alt="Face to Face Conversation"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 30vw"
               />
             </div>
             <span className="text-[10px] uppercase tracking-wider text-muted font-mono">
-              Studio Detail: Volumetric Harmattan Light Study
+              Ozuwo Enifome: Face to Face Conversation (2020)
             </span>
           </div>
 

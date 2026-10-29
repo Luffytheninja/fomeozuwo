@@ -4,17 +4,26 @@ import { useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Project } from '@/lib/data';
+import { Project, projects as defaultProjects } from '@/lib/data';
 
 interface LightboxProps {
   isOpen: boolean;
   onClose: () => void;
-  projectsList: Project[];
+  projectsList?: Project[];
   currentIndex: number;
-  onNavigate: (index: number) => void;
+  onNavigate?: (index: number) => void;
+  setCurrentIndex?: (index: number) => void;
 }
 
-export function Lightbox({ isOpen, onClose, projectsList, currentIndex, onNavigate }: LightboxProps) {
+export function Lightbox({ 
+  isOpen, 
+  onClose, 
+  projectsList = defaultProjects, 
+  currentIndex, 
+  onNavigate,
+  setCurrentIndex
+}: LightboxProps) {
+  const navigate = onNavigate || setCurrentIndex || (() => {});
   const currentProject = projectsList[currentIndex];
 
   const handleKeyDown = useCallback(
@@ -22,13 +31,13 @@ export function Lightbox({ isOpen, onClose, projectsList, currentIndex, onNaviga
       if (!isOpen) return;
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowRight') {
-        onNavigate((currentIndex + 1) % projectsList.length);
+        navigate((currentIndex + 1) % projectsList.length);
       }
       if (e.key === 'ArrowLeft') {
-        onNavigate((currentIndex - 1 + projectsList.length) % projectsList.length);
+        navigate((currentIndex - 1 + projectsList.length) % projectsList.length);
       }
     },
-    [isOpen, currentIndex, projectsList, onClose, onNavigate]
+    [isOpen, currentIndex, projectsList, onClose, navigate]
   );
 
   useEffect(() => {
@@ -80,7 +89,7 @@ export function Lightbox({ isOpen, onClose, projectsList, currentIndex, onNaviga
         <div className="relative flex-grow flex items-center justify-center my-6 md:my-12">
           {/* Navigation - Left */}
           <button
-            onClick={() => onNavigate((currentIndex - 1 + projectsList.length) % projectsList.length)}
+            onClick={() => navigate((currentIndex - 1 + projectsList.length) % projectsList.length)}
             className="absolute left-0 md:left-4 z-20 p-3 hover:bg-white/10 rounded-full transition-colors cursor-pointer"
             aria-label="Previous Project"
           >
@@ -108,7 +117,7 @@ export function Lightbox({ isOpen, onClose, projectsList, currentIndex, onNaviga
 
           {/* Navigation - Right */}
           <button
-            onClick={() => onNavigate((currentIndex + 1) % projectsList.length)}
+            onClick={() => navigate((currentIndex + 1) % projectsList.length)}
             className="absolute right-0 md:right-4 z-20 p-3 hover:bg-white/10 rounded-full transition-colors cursor-pointer"
             aria-label="Next Project"
           >

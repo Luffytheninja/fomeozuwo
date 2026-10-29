@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { projects, photographyCatalogue, Project } from '@/lib/data';
+import { projects, catalogues, Project } from '@/lib/data';
 import { Lightbox } from '@/components/Lightbox';
 import { Collectors } from '@/components/Collectors';
-import { ArrowLeft, ArrowRight, Maximize2, Download, Mail, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Maximize2, Download, Mail, ShieldCheck, Tag } from 'lucide-react';
 
 export default function ProjectPage() {
   const params = useParams();
@@ -39,6 +39,7 @@ export default function ProjectPage() {
   };
 
   const backPath = currentProject.category === 'painting' ? '/painting' : '/photography';
+  const relatedCatalogue = catalogues.find((c) => c.artistSlug === currentProject.artistSlug) || catalogues[0];
 
   // Function to extract position and scale from detail crops style strings for inline CSS
   const getCropStyles = (styleStr: string) => {
@@ -52,13 +53,13 @@ export default function ProjectPage() {
   };
 
   const inquirySubject = encodeURIComponent(
-    `Acquisition Inquiry: ${currentProject.catalogueId ? `${currentProject.catalogueId} - ` : ''}${currentProject.title}`
+    `Acquisition Inquiry: ${currentProject.catalogueId ? `[${currentProject.catalogueId}] ` : ''}${currentProject.title} by ${currentProject.artist}`
   );
 
   return (
     <div className="pt-32 md:pt-48 pb-32 px-6 md:px-12 max-w-[1400px] mx-auto min-h-screen text-foreground">
       {/* Back navigation */}
-      <div className="flex items-center justify-between mb-16">
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-16">
         <Link
           href={backPath}
           className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted hover:text-foreground transition-colors"
@@ -67,43 +68,66 @@ export default function ProjectPage() {
           Back to {currentProject.category === 'painting' ? 'Paintings' : 'Photography'}
         </Link>
 
-        {currentProject.category === 'photography' && (
+        {currentProject.pdfPath && (
           <a
-            href={photographyCatalogue.pdfPath}
-            download="Ozuwo_Enifome_Humanised_Landscape_Gallery_Catalogue.pdf"
+            href={currentProject.pdfPath}
+            download={currentProject.pdfFilename}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[11px] font-mono tracking-wider uppercase text-muted hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-2 px-3 py-1.5 border border-border/80 hover:border-foreground/60 text-[11px] font-mono tracking-wider uppercase text-foreground transition-colors"
           >
             <Download size={13} />
-            Catalogue PDF
+            <span>Catalogue PDF ({currentProject.artist.split(' ')[0]})</span>
           </a>
         )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start mb-32">
         {/* Left Column: Curatorial Stats & Story */}
-        <div className="lg:col-span-4 lg:sticky lg:top-32 space-y-10 animate-reveal-up">
+        <div className="lg:col-span-4 lg:sticky lg:top-32 space-y-8 animate-reveal-up">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-editorial-meta">{currentProject.collection} Collection</span>
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <span className="text-[10px] font-mono tracking-widest uppercase text-accent-olive font-bold">
+                {currentProject.artist}
+              </span>
+              <span className="text-muted/60">&middot;</span>
+              <span className="text-[10px] font-mono uppercase text-muted">
+                {currentProject.year}
+              </span>
               {currentProject.catalogueId && (
-                <span className="text-[10px] font-mono px-2 py-0.5 bg-warm-gray/40 text-foreground/80 rounded">
+                <span className="text-[10px] font-mono px-2 py-0.5 bg-warm-gray/50 text-foreground font-bold rounded">
                   {currentProject.catalogueId}
                 </span>
               )}
             </div>
-            <h1 className="text-4xl md:text-5xl font-editorial-serif italic leading-tight text-foreground">
+            
+            <h1 className="text-3xl md:text-5xl font-editorial-serif italic leading-tight text-foreground mb-2">
               {currentProject.title}
             </h1>
+
+            <span className="text-xs font-mono text-muted block">
+              {currentProject.collection}
+            </span>
           </div>
 
-          <div className="border-t border-border/80 pt-6 space-y-8">
+          <div className="border-t border-border/80 pt-6 space-y-6">
             <p className="text-sm text-muted leading-relaxed italic">
               &ldquo;{currentProject.story}&rdquo;
             </p>
 
-            <div className="grid grid-cols-2 gap-6 text-xs uppercase tracking-wider text-muted">
+            {/* Provenance Box */}
+            {currentProject.provenance && (
+              <div className="p-4 bg-warm-gray/25 border-l-2 border-accent-olive space-y-1">
+                <span className="text-[9px] font-mono uppercase tracking-widest text-accent-olive block">
+                  Provenance & Documentation
+                </span>
+                <p className="text-xs text-muted leading-relaxed font-mono">
+                  {currentProject.provenance}
+                </p>
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 gap-4 text-xs font-mono text-muted border-t border-border/40 pt-4">
               <div>
                 <span className="text-[9px] uppercase tracking-widest text-muted/60 block mb-1">Year</span>
                 <span className="text-foreground font-semibold">{currentProject.year}</span>
@@ -127,16 +151,29 @@ export default function ProjectPage() {
             {/* Direct Collector Acquisition Action */}
             <div className="pt-6 border-t border-border/60 flex flex-col gap-3">
               <a
-                href={`mailto:${photographyCatalogue.contactEmail}?subject=${inquirySubject}`}
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#1A1A1A] text-[#F8F7F4] hover:bg-black transition-editorial text-xs tracking-wider uppercase font-medium"
+                href={`mailto:${relatedCatalogue.contactEmail}?subject=${inquirySubject}`}
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-[#1A1A1A] text-[#F8F7F4] hover:bg-black transition-editorial text-xs tracking-wider uppercase font-mono font-medium shadow-sm"
               >
                 <Mail size={14} />
                 Inquire on Acquisition
               </a>
 
-              <div className="flex items-center gap-2 text-[11px] text-muted/80">
-                <ShieldCheck size={14} className="text-accent-olive" />
-                <span>Accompanied by signed Certificate of Authenticity & Object Record</span>
+              {currentProject.pdfPath && (
+                <a
+                  href={currentProject.pdfPath}
+                  download={currentProject.pdfFilename}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-border hover:border-foreground/60 transition-editorial text-xs tracking-wider uppercase font-mono text-foreground"
+                >
+                  <Download size={13} />
+                  Download Complete Catalogue (PDF)
+                </a>
+              )}
+
+              <div className="flex items-center gap-2 text-[11px] text-muted/80 pt-2">
+                <ShieldCheck size={14} className="text-accent-olive shrink-0" />
+                <span>Documented in private collection archive with artist provenance</span>
               </div>
             </div>
           </div>
@@ -147,7 +184,7 @@ export default function ProjectPage() {
           {/* Main Image Frame */}
           <div 
             onClick={handleOpenLightbox}
-            className="relative w-full aspect-[4/3] md:aspect-[3/2] cursor-pointer group bg-warm-gray/10 overflow-hidden"
+            className="relative w-full aspect-[4/3] md:aspect-[3/2] cursor-pointer group bg-warm-gray/10 overflow-hidden border border-border/60"
           >
             <Image
               src={currentProject.image}
@@ -159,12 +196,12 @@ export default function ProjectPage() {
             />
             
             {/* Fullscreen Overlay Trigger */}
-            <div className="absolute bottom-6 right-6 p-3 bg-[#1A1A1A]/80 text-[#F8F7F4] rounded-full opacity-0 group-hover:opacity-100 transition-editorial flex items-center justify-center">
+            <div className="absolute bottom-6 right-6 p-3 bg-[#1A1A1A]/85 text-[#F8F7F4] rounded-full opacity-0 group-hover:opacity-100 transition-editorial flex items-center justify-center hover:scale-110">
               <Maximize2 size={16} />
             </div>
           </div>
 
-          {/* Tactility & Tonal Study (Detail Crops for both Painting & Photography) */}
+          {/* Tactility & Tonal Study (Detail Crops if defined) */}
           {currentProject.detailCrops && currentProject.detailCrops.length > 0 && (
             <div className="border-t border-border/60 pt-16 animate-reveal-up">
               <div className="mb-8">
@@ -179,7 +216,7 @@ export default function ProjectPage() {
                   const cropStyles = getCropStyles(crop.style);
                   return (
                     <div key={idx} className="flex flex-col gap-3">
-                      <div className="relative w-full h-64 overflow-hidden bg-warm-gray/25">
+                      <div className="relative w-full h-64 overflow-hidden bg-warm-gray/25 border border-border/40">
                         <Image
                           src={currentProject.image}
                           alt={`${currentProject.title} Detail Crop ${idx + 1}`}
@@ -220,7 +257,7 @@ export default function ProjectPage() {
           href="/"
           className="text-xs uppercase tracking-[0.2em] text-muted hover:text-foreground transition-colors"
         >
-          All Archive
+          All Archive ({projects.length} Works)
         </Link>
 
         <Link
@@ -238,14 +275,8 @@ export default function ProjectPage() {
       <Lightbox
         isOpen={isLightboxOpen}
         onClose={() => setIsLightboxOpen(false)}
-        projectsList={projects}
         currentIndex={currentIndex}
-        onNavigate={(index) => {
-          const target = projects[index];
-          if (target) {
-            router.push(`/work/${target.id}`);
-          }
-        }}
+        setCurrentIndex={setLightboxIndex}
       />
     </div>
   );
