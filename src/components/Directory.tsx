@@ -6,7 +6,9 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project, projects, artists, catalogues } from '@/lib/data';
 import { Lightbox } from '@/components/Lightbox';
-import { Mail, Search, Grid, List, ArrowRight, Maximize2, FileText, Filter, X } from 'lucide-react';
+import { Mail, Search, Grid, List, ArrowRight, Maximize2, FileText, Filter, X, ChevronDown, ChevronUp } from 'lucide-react';
+
+const INITIAL_SHOW = 12; // 4 rows of 3 — enough context without infinite scroll
 
 interface DirectoryProps {
   initialArtist?: string;
@@ -60,6 +62,16 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
       return true;
     });
   }, [selectedArtist, selectedCategory, selectedYear, searchQuery]);
+
+  const [showAll, setShowAll] = useState(false);
+
+  // Reset showAll when filters change so user always sees results from top
+  useMemo(() => { setShowAll(false); }, [selectedArtist, selectedCategory, selectedYear, searchQuery]);
+
+  const visibleProjects = useMemo(
+    () => (showAll ? filteredProjects : filteredProjects.slice(0, INITIAL_SHOW)),
+    [filteredProjects, showAll]
+  );
 
   const activeCatalogue = useMemo(() => {
     if (selectedArtist === 'all') return null;
@@ -358,7 +370,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
       ) : viewMode === 'grid' ? (
         /* GRID VIEW */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-          {filteredProjects.map((project) => (
+          {visibleProjects.map((project) => (
             <article
               key={project.id}
               className="group flex flex-col justify-between border border-border/50 bg-background hover:border-foreground/40 transition-editorial"
@@ -462,7 +474,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
               </tr>
             </thead>
             <tbody className="divide-y divide-border/60">
-              {filteredProjects.map((project) => (
+              {visibleProjects.map((project) => (
                 <tr key={project.id} className="hover:bg-warm-gray/10 transition-colors">
                   <td className="py-3 px-4 font-bold text-foreground">{project.catalogueId}</td>
                   <td className="py-3 px-4">
@@ -509,6 +521,31 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Show More / Show Less */}
+      {filteredProjects.length > INITIAL_SHOW && (
+        <div className="flex flex-col items-center gap-3 mt-12 pt-8 border-t border-border/40">
+          <span className="text-xs font-mono text-muted">
+            Showing {showAll ? filteredProjects.length : Math.min(INITIAL_SHOW, filteredProjects.length)} of {filteredProjects.length} works
+          </span>
+          <button
+            onClick={() => setShowAll((v) => !v)}
+            className="inline-flex items-center gap-2 px-6 py-3 border border-foreground/30 text-foreground hover:bg-foreground hover:text-background text-xs font-mono uppercase tracking-widest transition-all duration-200 group"
+          >
+            {showAll ? (
+              <>
+                <ChevronUp size={13} className="group-hover:-translate-y-0.5 transition-transform" />
+                <span>Show Less</span>
+              </>
+            ) : (
+              <>
+                <span>Show All {filteredProjects.length} Works</span>
+                <ChevronDown size={13} className="group-hover:translate-y-0.5 transition-transform" />
+              </>
+            )}
+          </button>
         </div>
       )}
 

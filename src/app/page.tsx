@@ -4,7 +4,8 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { catalogues } from '@/lib/data';
+import { catalogues, projects } from '@/lib/data';
+import { BackToTop } from '@/components/BackToTop';
 import { Directory } from '@/components/Directory';
 import { Collectors } from '@/components/Collectors';
 import { ArrowDown, ArrowRight, Mail } from 'lucide-react';
@@ -98,7 +99,7 @@ export default function HomePage() {
   useEffect(() => {
     if (typeof window !== 'undefined' && window.location.hash === '#contact') {
       setTimeout(() => {
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('collectors')?.scrollIntoView({ behavior: 'smooth' });
       }, 500);
     }
   }, []);
@@ -204,7 +205,7 @@ export default function HomePage() {
             <span className="text-editorial-meta mb-3 block">Curated Portfolios</span>
             <h2 className="text-display-medium mb-4">Six Gallery Catalogues</h2>
             <p className="text-sm text-muted leading-relaxed">
-              Each artist represented in the Ozuwo Enifome Collection is documented through an international gallery catalogue, detailing provenance, artist biographies, exhibitions, and technical notes.
+              Each holding in the Ozuwo Enifome Collection is documented through a formal gallery catalogue — detailing provenance, artist biography, exhibition history, and technical notes. Catalogues are available on request.
             </p>
           </div>
 
@@ -281,7 +282,7 @@ export default function HomePage() {
             <span className="text-editorial-meta mb-3 block">Complete Archive</span>
             <h2 className="text-display-medium mb-4">Collection Directory</h2>
             <p className="text-sm text-muted leading-relaxed">
-              Explore the entire inventory of 78 authenticated works across all six catalogues. Filter across artists, mediums, and production years, or request corresponding curatorial publications directly.
+              Explore the entire inventory of <strong className="text-foreground">{projects.length}</strong> authenticated works across all six catalogues. Filter by artist, medium, or year — or request the corresponding curatorial publication directly.
             </p>
           </div>
 
@@ -292,6 +293,9 @@ export default function HomePage() {
         {/* 4. COLLECTORS & LOGISTICS SECTION */}
         <Collectors />
       </div>
+
+      {/* Floating Back to Top */}
+      <BackToTop />
     </div>
   );
 }

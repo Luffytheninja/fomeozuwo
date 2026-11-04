@@ -19,7 +19,7 @@ export function Collectors() {
             </p>
           </div>
 
-          {/* all 5 gallery catalogues */}
+          {/* gallery catalogues — dynamically rendered */}
           <div className="mt-8 space-y-3 pt-6 border-t border-border/60">
             <span className="text-[10px] font-mono uppercase tracking-widest text-muted block mb-2">
               Official Gallery Catalogues

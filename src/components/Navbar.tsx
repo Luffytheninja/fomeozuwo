@@ -17,9 +17,9 @@ export function Navbar() {
 
   const scrollToContact = () => {
     if (pathname === '/') {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('collectors')?.scrollIntoView({ behavior: 'smooth' });
     } else {
-      router.push('/#contact');
+      router.push('/#collectors');
     }
   };
 
@@ -179,10 +179,10 @@ export function Navbar() {
                     setIsOpen(false);
                     if (pathname === '/') {
                       setTimeout(() => {
-                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                        document.getElementById('collectors')?.scrollIntoView({ behavior: 'smooth' });
                       }, 300);
                     } else {
-                      router.push('/#contact');
+                      router.push('/#collectors');
                     }
                   }}
                   className="text-3xl sm:text-4xl font-editorial-serif font-light text-accent-olive italic text-left"
