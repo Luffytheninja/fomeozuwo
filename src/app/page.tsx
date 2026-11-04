@@ -202,13 +202,13 @@ export default function HomePage() {
         <section id="catalogues" className="py-20 sm:py-24 md:py-32 border-b border-border">
           <div className="max-w-2xl mb-12 sm:mb-16">
             <span className="text-editorial-meta mb-3 block">Curated Portfolios</span>
-            <h2 className="text-display-medium mb-4">Five Landmark Catalogues</h2>
+            <h2 className="text-display-medium mb-4">Six Gallery Catalogues</h2>
             <p className="text-sm text-muted leading-relaxed">
               Each artist represented in the Ozuwo Enifome Collection is documented through an international gallery catalogue, detailing provenance, artist biographies, exhibitions, and technical notes.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {catalogues.map((cat, idx) => (
               <div 
                 key={cat.id}
@@ -281,7 +281,7 @@ export default function HomePage() {
             <span className="text-editorial-meta mb-3 block">Complete Archive</span>
             <h2 className="text-display-medium mb-4">Collection Directory</h2>
             <p className="text-sm text-muted leading-relaxed">
-              Explore the entire inventory of 78 authenticated works. Filter across artists, mediums, and production years, or request corresponding curatorial publications directly.
+              Explore the entire inventory of 78 authenticated works across all six catalogues. Filter across artists, mediums, and production years, or request corresponding curatorial publications directly.
             </p>
           </div>
 
