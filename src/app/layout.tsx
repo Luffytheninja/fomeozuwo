@@ -1,8 +1,14 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import { SmoothScroll } from '@/components/SmoothScroll';
 import { Navbar } from '@/components/Navbar';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 const inter = Inter({
   variable: '--font-inter',
@@ -64,7 +70,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${cormorant.variable} antialiased text-foreground bg-background selection:bg-foreground selection:text-background font-sans`}
+        className={`${inter.variable} ${cormorant.variable} antialiased text-foreground bg-background selection:bg-foreground selection:text-background font-sans w-full overflow-x-hidden relative min-h-screen`}
       >
         <Navbar />
         <SmoothScroll>

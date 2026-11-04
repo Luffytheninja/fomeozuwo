@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function LegalPage() {
   return (
-    <div className="pt-32 md:pt-48 pb-32 px-6 md:px-12 max-w-[1200px] mx-auto min-h-screen">
+    <div className="pt-28 sm:pt-32 md:pt-48 pb-24 sm:pb-32 px-4 sm:px-6 md:px-12 max-w-[1200px] mx-auto min-h-screen w-full overflow-x-hidden">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
         {/* Header */}
         <div className="md:col-span-12 mb-20 animate-reveal-up">

@@ -1,20 +1,95 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { projects, artists, catalogues } from '@/lib/data';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { catalogues } from '@/lib/data';
 import { Directory } from '@/components/Directory';
 import { Collectors } from '@/components/Collectors';
-import { ArrowDown, ArrowRight, Mail, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowDown, ArrowRight, Mail } from 'lucide-react';
+
+// Curated artworks across painting and photography spanning all four artists
+const HERO_SLIDES = [
+  {
+    src: '/images/paintings/early-patronage/KA-03_traditional-musicians.webp',
+    alt: 'Traditional Musicians by Kelani Abass',
+    artist: 'Kelani Abass',
+    medium: 'Painting',
+  },
+  {
+    src: '/images/collections/akinwolere/ma-05.webp',
+    alt: 'Figures & Line by Muyiwa Akinwolere',
+    artist: 'Muyiwa Akinwolere',
+    medium: 'Painting',
+  },
+  {
+    src: '/images/collections/shobowale/jbs-002.webp',
+    alt: 'Mixed Media on Wood by Johnson Babatunde Shobowale',
+    artist: 'Johnson Babatunde Shobowale',
+    medium: 'Mixed Media',
+  },
+  {
+    src: '/images/photography/art-of-everyday-life/OE-PH010_face-to-face-conversation.webp',
+    alt: 'Face to Face Conversation by Ozuwo Enifome',
+    artist: 'Ozuwo Enifome',
+    medium: 'Fine Art Photography',
+  },
+  {
+    src: '/images/paintings/enifome/oe-p001.webp',
+    alt: 'Daily Hustle by Ozuwo Enifome',
+    artist: 'Ozuwo Enifome',
+    medium: 'Painting & Digitopainting',
+  },
+  {
+    src: '/images/paintings/enifome/oe-p004.webp',
+    alt: 'The Street Guitarist by Ozuwo Enifome',
+    artist: 'Ozuwo Enifome',
+    medium: 'Painting & Digitopainting',
+  },
+  {
+    src: '/images/paintings/early-patronage/KA-01_village-passage.webp',
+    alt: 'Village Passage by Kelani Abass',
+    artist: 'Kelani Abass',
+    medium: 'Painting',
+  },
+  {
+    src: '/images/collections/shobowale/jbs-006.webp',
+    alt: 'Textured Relief by Johnson Babatunde Shobowale',
+    artist: 'Johnson Babatunde Shobowale',
+    medium: 'Mixed Media',
+  },
+  {
+    src: '/images/collections/akinwolere/ma-02.webp',
+    alt: 'Works on Paper by Muyiwa Akinwolere',
+    artist: 'Muyiwa Akinwolere',
+    medium: 'Painting',
+  },
+  {
+    src: '/images/photography/art-of-everyday-life/OE-PH009_light-at-the-end-of-the-tunnel.webp',
+    alt: 'Light at the End of the Tunnel by Ozuwo Enifome',
+    artist: 'Ozuwo Enifome',
+    medium: 'Fine Art Photography',
+  },
+];
 
 export default function HomePage() {
-  // Parallax scroll setup for Hero Image
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Slideshow auto-advance every 5.5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 5500);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Parallax scroll setup for Hero
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
-    offset: ['start start', 'end start']
+    offset: ['start start', 'end start'],
   });
   const heroBgY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
   const heroTextOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
@@ -28,106 +103,116 @@ export default function HomePage() {
     }
   }, []);
 
+  const scrollToDirectory = useCallback(() => {
+    document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const scrollToCatalogues = useCallback(() => {
+    document.getElementById('catalogues')?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
   return (
-    <div className="bg-background min-h-screen text-foreground relative">
+    <div className="bg-background min-h-screen text-foreground relative w-full overflow-x-hidden">
       {/* 1. HERO SECTION */}
-      <section ref={heroRef} className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#151515]">
-        {/* Parallax Background Artwork */}
-        <motion.div style={{ y: heroBgY }} className="absolute inset-0 w-full h-full opacity-45">
-          <Image
-            src="/images/photography/art-of-everyday-life/OE-PH010_face-to-face-conversation.webp"
-            alt="The Ozuwo Enifome Collection"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#151515] via-transparent to-black/40" />
+      <section
+        ref={heroRef}
+        className="relative min-h-[100svh] w-full overflow-hidden flex items-center justify-start bg-[#151515]"
+      >
+        {/* Artwork Media Slideshow with Ken Burns & Parallax */}
+        <motion.div style={{ y: heroBgY }} className="absolute inset-0 w-full h-full pointer-events-none">
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 0.52, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-0 w-full h-full"
+            >
+              <Image
+                src={HERO_SLIDES[currentSlide].src}
+                alt={HERO_SLIDES[currentSlide].alt}
+                fill
+                priority={currentSlide === 0}
+                className="object-cover"
+                sizes="100vw"
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Vignette Gradients for razor-sharp Swiss typographic contrast */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#151515] via-[#151515]/60 to-black/75" />
+          <div className="absolute inset-0 bg-radial-[at_center_center] from-transparent via-black/30 to-black/70" />
         </motion.div>
 
-        {/* Minimal Hero Text overlay */}
-        <motion.div 
-          style={{ opacity: heroTextOpacity }}
-          className="absolute inset-0 flex flex-col justify-between p-6 md:p-14 z-10 text-[#F8F7F4]"
-        >
-          <div className="flex justify-between items-start w-full">
-            <div className="flex flex-col">
-              <span className="text-[10px] md:text-xs uppercase tracking-[0.25em] opacity-80">
-                The Ozuwo Enifome Collection
-              </span>
-              <span className="text-[9px] font-mono text-white/50 tracking-wider">
-                Private Archive &middot; Lagos, Nigeria
-              </span>
-            </div>
-            <span className="text-[10px] md:text-xs uppercase tracking-[0.25em] opacity-80 font-mono">
-              67 Documented Works
-            </span>
-          </div>
+        {/* Minimalist Slide Navigation Dots (aesthetic gallery touch) */}
+        <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-10 z-20 flex items-center gap-1.5 pointer-events-auto">
+          {HERO_SLIDES.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+              className={`h-1 transition-all duration-500 rounded-full ${
+                idx === currentSlide ? 'w-6 bg-white' : 'w-1.5 bg-white/30 hover:bg-white/60'
+              }`}
+            />
+          ))}
+        </div>
 
-          <div className="max-w-2xl self-start mt-auto mb-12 md:mb-16">
-            <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-accent-olive/90 block mb-3">
-              Modern & Contemporary Nigerian Art
-            </span>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-editorial-serif italic font-light tracking-tight mb-6 leading-tight">
-              A private collection of painting, patronage & light.
+        {/* Hero Content: Pure Swiss copy without clutter */}
+        <motion.div
+          style={{ opacity: heroTextOpacity }}
+          className="relative z-10 w-full px-5 sm:px-8 md:px-14 lg:px-20 pt-28 sm:pt-32 md:pt-36 pb-16 flex flex-col justify-center"
+        >
+          <div className="max-w-3xl">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-editorial-serif italic font-light tracking-tight text-[#F8F7F4] leading-[1.12] sm:leading-[1.15] mb-5 sm:mb-6">
+              A private collection of painting, patronage &amp; light.
             </h1>
-            <p className="text-xs md:text-sm font-sans tracking-wide text-white/75 max-w-xl leading-relaxed">
+
+            <p className="text-xs sm:text-sm md:text-base font-sans font-light tracking-wide text-white/80 max-w-2xl leading-relaxed mb-8 md:mb-10">
               Curated holdings and early student patronage spanning Kelani Abass, Muyiwa Akinwolere, 
               Johnson Babatunde Shobowale, and the photographic works of Ozuwo Enifome. 
               Preserved with dedicated gallery catalogues and provenance records.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 mt-8">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <button
-                onClick={() => {
-                  document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#F8F7F4] text-[#151515] hover:bg-white text-xs font-mono uppercase tracking-wider font-semibold transition-all shadow-md group"
+                onClick={scrollToDirectory}
+                className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 bg-[#F8F7F4] text-[#151515] hover:bg-white text-xs font-mono uppercase tracking-[0.16em] font-medium transition-all shadow-md group"
               >
                 <span>Explore The Directory</span>
                 <ArrowDown size={13} className="group-hover:translate-y-0.5 transition-transform" />
               </button>
 
               <button
-                onClick={() => {
-                  document.getElementById('catalogues')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 hover:border-white text-[#F8F7F4] text-xs font-mono uppercase tracking-wider transition-all"
+                onClick={scrollToCatalogues}
+                className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 border border-white/40 hover:border-white hover:bg-white/10 text-[#F8F7F4] text-xs font-mono uppercase tracking-[0.16em] font-medium transition-all backdrop-blur-xs"
               >
                 <ArrowDown size={13} />
                 <span>Explore Catalogues</span>
               </button>
             </div>
           </div>
-
-          <div className="flex justify-between items-end w-full border-t border-white/10 pt-4">
-            <span className="text-[10px] uppercase tracking-widest opacity-60 font-mono">
-              2006 &ndash; 2026 Archive
-            </span>
-            <span className="text-xs font-serif italic opacity-60">
-              Scroll to explore works & catalogues &darr;
-            </span>
-          </div>
         </motion.div>
       </section>
 
-      <div className="px-6 md:px-12 max-w-[1600px] mx-auto">
-        
+      {/* Main Content Wrapper (Optimized for Mobile & Wide Screens) */}
+      <div className="px-4 sm:px-6 md:px-12 max-w-[1600px] mx-auto w-full">
         {/* 2. CATALOGUE SUITES (Curated Collections Shelf) */}
-        <section id="catalogues" className="py-24 md:py-32 border-b border-border">
-          <div className="max-w-2xl mb-16">
+        <section id="catalogues" className="py-20 sm:py-24 md:py-32 border-b border-border">
+          <div className="max-w-2xl mb-12 sm:mb-16">
             <span className="text-editorial-meta mb-3 block">Curated Portfolios</span>
-            <h2 className="text-display-medium mb-4">Four Landmark Catalogues</h2>
+            <h2 className="text-display-medium mb-4">Five Landmark Catalogues</h2>
             <p className="text-sm text-muted leading-relaxed">
               Each artist represented in the Ozuwo Enifome Collection is documented through an international gallery catalogue, detailing provenance, artist biographies, exhibitions, and technical notes.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {catalogues.map((cat, idx) => (
               <div 
                 key={cat.id}
-                className="group flex flex-col justify-between border border-border/70 bg-warm-gray/10 hover:bg-warm-gray/25 hover:border-foreground/40 transition-editorial p-6"
+                className="group flex flex-col justify-between border border-border/70 bg-warm-gray/10 hover:bg-warm-gray/25 hover:border-foreground/40 transition-editorial p-5 sm:p-6"
               >
                 <div>
                   <div className="relative aspect-[4/3] w-full mb-6 bg-warm-gray/30 overflow-hidden">
@@ -136,7 +221,7 @@ export default function HomePage() {
                       alt={cat.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-slow"
-                      sizes="(max-width: 768px) 100vw, 25vw"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     />
                     <div className="absolute top-2 right-2 px-2 py-0.5 bg-background/90 text-foreground font-mono text-[9px] uppercase border border-border/60">
                       {cat.period}
@@ -147,7 +232,7 @@ export default function HomePage() {
                     0{idx + 1} &middot; {cat.category}
                   </span>
                   
-                  <h3 className="text-2xl font-editorial-serif italic text-foreground mb-1">
+                  <h3 className="text-xl sm:text-2xl font-editorial-serif italic text-foreground mb-1">
                     {cat.artist}
                   </h3>
 
@@ -168,17 +253,18 @@ export default function HomePage() {
 
                   <div className="flex items-center gap-2 pt-2">
                     <a
-                    href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + cat.title)}`}
-                    className="inline-flex items-center gap-2 px-4 py-2 text-xs font-mono uppercase tracking-wider border border-[#F8F7F4]/40 text-[#F8F7F4] hover:bg-[#F8F7F4]/10 transition-colors"
-                  >
-                    <Mail size={12} />
-                    Request Catalogue
-                  </a>
+                      href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + cat.title)}`}
+                      className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-mono uppercase tracking-wider border border-foreground/30 text-foreground hover:bg-foreground hover:text-background transition-colors flex-1 justify-center sm:justify-start"
+                    >
+                      <Mail size={12} />
+                      <span>Request Catalogue</span>
+                    </a>
 
                     <Link
                       href={cat.category === 'painting' ? '/painting' : '/photography'}
-                      className="p-2 border border-border hover:border-foreground/60 transition-colors text-foreground"
+                      className="p-2 border border-border hover:border-foreground/60 transition-colors text-foreground shrink-0"
                       title="View collection page"
+                      aria-label={`View ${cat.artist} collection`}
                     >
                       <ArrowRight size={14} />
                     </Link>
@@ -190,12 +276,12 @@ export default function HomePage() {
         </section>
 
         {/* 3. FULL COLLECTION DIRECTORY & INTERACTIVE FILTER */}
-        <section className="py-24 md:py-32">
-          <div className="max-w-3xl mb-12">
+        <section className="py-20 sm:py-24 md:py-32">
+          <div className="max-w-3xl mb-10 sm:mb-12">
             <span className="text-editorial-meta mb-3 block">Complete Archive</span>
             <h2 className="text-display-medium mb-4">Collection Directory</h2>
             <p className="text-sm text-muted leading-relaxed">
-              Explore the entire inventory of 67 authenticated works. Filter across artists, mediums, and production years, or request corresponding curatorial publications directly.
+              Explore the entire inventory of 78 authenticated works. Filter across artists, mediums, and production years, or request corresponding curatorial publications directly.
             </p>
           </div>
 
@@ -205,7 +291,6 @@ export default function HomePage() {
 
         {/* 4. COLLECTORS & LOGISTICS SECTION */}
         <Collectors />
-
       </div>
     </div>
   );

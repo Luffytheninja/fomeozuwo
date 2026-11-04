@@ -6,7 +6,7 @@ import { catalogues } from '@/lib/data';
 
 export function Collectors() {
   return (
-    <section id="collectors" className="py-24 border-t border-border mt-32">
+    <section id="collectors" className="py-16 md:py-24 border-t border-border mt-16 md:mt-32">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
         <div className="lg:col-span-5 flex flex-col justify-between">
           <div className="space-y-4">
@@ -19,7 +19,7 @@ export function Collectors() {
             </p>
           </div>
 
-          {/* all 4 gallery catalogues */}
+          {/* all 5 gallery catalogues */}
           <div className="mt-8 space-y-3 pt-6 border-t border-border/60">
             <span className="text-[10px] font-mono uppercase tracking-widest text-muted block mb-2">
               Official Gallery Catalogues

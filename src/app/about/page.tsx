@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="pt-32 md:pt-48 pb-32 px-6 md:px-12 max-w-[1200px] mx-auto min-h-screen">
+    <div className="pt-28 sm:pt-32 md:pt-48 pb-24 sm:pb-32 px-4 sm:px-6 md:px-12 max-w-[1200px] mx-auto min-h-screen w-full overflow-x-hidden">
       
       {/* Page Header */}
       <header className="mb-32 max-w-2xl animate-reveal-up">

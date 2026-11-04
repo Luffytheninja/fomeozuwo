@@ -22,7 +22,7 @@ export default function PaintingPage() {
     : allPaintings.filter((p) => p.artistSlug === selectedArtistSlug);
 
   const activeArtist = artists.find((a) => a.slug === selectedArtistSlug);
-  const activeCatalogue = catalogues.find((c) => c.artistSlug === selectedArtistSlug);
+  const activeCatalogue = catalogues.find((c) => c.artistSlug === selectedArtistSlug && c.category === 'painting');
 
   const openLightboxForWork = (workId: string) => {
     const idx = displayedPaintings.findIndex((p) => p.id === workId);
@@ -32,10 +32,10 @@ export default function PaintingPage() {
     }
   };
 
-  const paintingArtists = artists.filter((a) => a.category === 'painting');
+  const paintingArtists = artists.filter((a) => a.category === 'painting' || a.category === 'all');
 
   return (
-    <div className="pt-32 md:pt-48 pb-32 px-6 md:px-12 max-w-[1500px] mx-auto min-h-screen text-foreground">
+    <div className="pt-28 sm:pt-32 md:pt-48 pb-24 sm:pb-32 px-4 sm:px-6 md:px-12 max-w-[1500px] mx-auto min-h-screen text-foreground w-full overflow-x-hidden">
       {/* Editorial Header */}
       <header className="mb-20 max-w-3xl animate-reveal-up">
         <div className="flex items-center gap-3 mb-4">
@@ -43,16 +43,16 @@ export default function PaintingPage() {
             The Painting Archive
           </span>
           <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-accent-olive bg-accent-olive/10 px-3 py-1 rounded-full">
-            55 Documented Works
+            {allPaintings.length} Documented Works
           </span>
         </div>
         <h1 className="text-4xl md:text-6xl font-editorial-serif italic mb-6">
           Paintings & Works on Paper
         </h1>
         <p className="text-sm md:text-base text-muted leading-relaxed">
-          Spanning direct student-era patronage to senior studio practice. Featuring 55 original works across oil on canvas, 
+          Spanning direct student-era patronage to senior studio practice. Featuring {allPaintings.length} original works across oil on canvas, 
           sawdust-primed supports, metal-foil relief, antique ink, gouache, and fabric collage by Kelani Abass, Muyiwa Akinwolere, 
-          and Johnson Babatunde Shobowale.
+          and Johnson Babatunde Shobowale, and the digitopaintings of Ozuwo Enifome.
         </p>
       </header>
 
@@ -82,7 +82,7 @@ export default function PaintingPage() {
                   : 'bg-warm-gray/40 text-muted hover:text-foreground'
               }`}
             >
-              {artist.name} ({artist.worksCount})
+              {artist.name} ({allPaintings.filter(p => p.artistSlug === artist.slug).length})
             </button>
           ))}
         </div>

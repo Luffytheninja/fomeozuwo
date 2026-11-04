@@ -34,7 +34,7 @@ export default function PhotographyPage() {
   const suite2020 = photos.filter((p) => p.year === '2020');
 
   return (
-    <div className="pt-32 md:pt-48 pb-32 px-0 md:px-0 min-h-screen bg-background text-foreground">
+    <div className="pt-28 sm:pt-32 md:pt-48 pb-24 sm:pb-32 px-0 min-h-screen bg-background text-foreground w-full overflow-x-hidden">
       {/* Editorial Header */}
       <header className="mb-20 px-6 md:px-12 max-w-4xl mx-auto text-center animate-reveal-up">
         <div className="flex items-center justify-center gap-3 mb-4">

@@ -57,7 +57,7 @@ export default function ProjectPage() {
   );
 
   return (
-    <div className="pt-32 md:pt-48 pb-32 px-6 md:px-12 max-w-[1400px] mx-auto min-h-screen text-foreground">
+    <div className="pt-28 sm:pt-32 md:pt-48 pb-24 sm:pb-32 px-4 sm:px-6 md:px-12 max-w-[1400px] mx-auto min-h-screen text-foreground w-full overflow-x-hidden">
       {/* Back navigation */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-16">
         <Link

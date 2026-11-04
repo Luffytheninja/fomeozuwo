@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
@@ -63,8 +63,12 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
 
   const activeCatalogue = useMemo(() => {
     if (selectedArtist === 'all') return null;
+    if (selectedCategory !== 'all') {
+      const match = catalogues.find((c) => c.artistSlug === selectedArtist && c.category === selectedCategory);
+      if (match) return match;
+    }
     return catalogues.find((c) => c.artistSlug === selectedArtist) || null;
-  }, [selectedArtist]);
+  }, [selectedArtist, selectedCategory]);
 
   const openLightboxForId = (id: string) => {
     const idx = projects.findIndex((p) => p.id === id);
@@ -97,13 +101,13 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
             </h3>
           </div>
           <span className="text-xs text-muted font-mono">
-            4 Catalogues &middot; 67 Documented Works
+            {catalogues.length} Catalogues &middot; {projects.length} Documented Works
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
           {catalogues.map((cat) => {
-            const isSelected = selectedArtist === cat.artistSlug;
+            const isSelected = selectedArtist === cat.artistSlug && (selectedCategory === 'all' || selectedCategory === cat.category);
             return (
               <div
                 key={cat.id}
@@ -139,7 +143,15 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
                     <span>Request</span>
                   </a>
                   <button
-                    onClick={() => setSelectedArtist(isSelected ? 'all' : cat.artistSlug)}
+                    onClick={() => {
+                      if (isSelected && selectedCategory === cat.category) {
+                        setSelectedArtist('all');
+                        setSelectedCategory('all');
+                      } else {
+                        setSelectedArtist(cat.artistSlug);
+                        setSelectedCategory(cat.category);
+                      }
+                    }}
                     className={`py-1.5 px-3 text-[10px] font-mono uppercase tracking-wider border transition-colors ${
                       isSelected
                         ? 'border-accent-olive text-accent-olive bg-accent-olive/10 font-bold'
@@ -156,7 +168,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
       </div>
 
       {/* 2. FILTER CONTROLS BAR */}
-      <div className="sticky top-20 z-30 bg-background/95 backdrop-blur-md border-y border-border py-4 mb-10">
+      <div className="sticky top-14 sm:top-16 md:top-20 z-30 bg-background/95 backdrop-blur-md border-y border-border py-3 sm:py-4 mb-8 sm:mb-10">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           
           {/* Artist Tabs */}
