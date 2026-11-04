@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,9 +10,17 @@ import { Lightbox } from '@/components/Lightbox';
 import { Collectors } from '@/components/Collectors';
 import { ArrowRight, Maximize2, FileText, Sparkles, Filter, Mail } from 'lucide-react';
 
-export default function PaintingPage() {
+function PaintingContent() {
+  const searchParams = useSearchParams();
+  const artistParam = searchParams.get('artist');
   const allPaintings = projects.filter((p) => p.category === 'painting');
-  const [selectedArtistSlug, setSelectedArtistSlug] = useState<string>('all');
+  const [selectedArtistSlug, setSelectedArtistSlug] = useState<string>(artistParam || 'all');
+
+  useEffect(() => {
+    if (artistParam) {
+      setSelectedArtistSlug(artistParam);
+    }
+  }, [artistParam]);
   
   // Lightbox State
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -167,7 +176,7 @@ export default function PaintingPage() {
               >
                 <Image
                   src={painting.image}
-                  alt={painting.title}
+                  alt={`${painting.title} by ${painting.artist} — ${painting.description}`}
                   fill
                   className="object-contain p-6 md:p-8 transition-slow group-hover:scale-[1.02]"
                   sizes="(max-width: 1024px) 100vw, 60vw"
@@ -258,5 +267,14 @@ export default function PaintingPage() {
         onNavigate={(index) => setLightboxIndex(index)}
       />
     </div>
+  );
+}
+
+
+export default function PaintingPage() {
+  return (
+    <Suspense fallback={<div className="pt-48 pb-32 text-center font-mono text-xs text-muted">Loading painting archive...</div>}>
+      <PaintingContent />
+    </Suspense>
   );
 }

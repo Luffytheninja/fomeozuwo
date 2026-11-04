@@ -56,8 +56,28 @@ export default function ProjectPage() {
     `Acquisition Inquiry: ${currentProject.catalogueId ? `[${currentProject.catalogueId}] ` : ''}${currentProject.title} by ${currentProject.artist}`
   );
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'VisualArtwork',
+    name: currentProject.title,
+    image: `https://fomeozuwo.vercel.app${currentProject.image}`,
+    description: currentProject.description,
+    creator: {
+      '@type': 'Person',
+      name: currentProject.artist,
+    },
+    artMedium: currentProject.medium,
+    artform: currentProject.category === 'painting' ? 'Painting' : 'Photograph',
+    dateCreated: currentProject.year,
+    width: currentProject.dimensions,
+  };
+
   return (
     <div className="pt-28 sm:pt-32 md:pt-48 pb-24 sm:pb-32 px-4 sm:px-6 md:px-12 max-w-[1400px] mx-auto min-h-screen text-foreground w-full overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Back navigation */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-16">
         <Link
@@ -178,7 +198,7 @@ export default function ProjectPage() {
           >
             <Image
               src={currentProject.image}
-              alt={currentProject.title}
+              alt={`${currentProject.title} by ${currentProject.artist} — ${currentProject.description}`}
               fill
               className="object-contain p-4 md:p-8 transition-slow group-hover:scale-[1.01]"
               priority

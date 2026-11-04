@@ -6,9 +6,17 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project, projects, artists, catalogues } from '@/lib/data';
 import { Lightbox } from '@/components/Lightbox';
-import { Mail, Search, Grid, List, ArrowRight, Maximize2, FileText, Filter, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Search, Grid, List, ArrowRight, Maximize2, FileText, Filter, X, ChevronDown, ChevronUp, Mail } from 'lucide-react';
 
 const INITIAL_SHOW = 12; // 4 rows of 3 — enough context without infinite scroll
+
+// Curatorial display priority: Enifome's own work first (it's his site), then others
+const ARTIST_PRIORITY: Record<string, number> = {
+  'ozuwo-enifome': 0,
+  'johnson-shobowale': 1,
+  'muyiwa-akinwolere': 2,
+  'kelani-abass': 3,
+};
 
 interface DirectoryProps {
   initialArtist?: string;
@@ -34,7 +42,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
 
   // Filtered projects
   const filteredProjects = useMemo(() => {
-    return projects.filter((p) => {
+    let result = projects.filter((p) => {
       // Artist filter
       if (selectedArtist !== 'all' && p.artistSlug !== selectedArtist) {
         return false;
@@ -61,6 +69,18 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
       }
       return true;
     });
+    // When no artist filter, sort by curatorial priority (Enifome first, photography before painting)
+    if (selectedArtist === 'all') {
+      result = [...result].sort((a, b) => {
+        const pa = ARTIST_PRIORITY[a.artistSlug] ?? 99;
+        const pb = ARTIST_PRIORITY[b.artistSlug] ?? 99;
+        if (pa !== pb) return pa - pb;
+        // Within same artist: photography before painting
+        if (a.category !== b.category) return a.category === 'photography' ? -1 : 1;
+        return 0;
+      });
+    }
+    return result;
   }, [selectedArtist, selectedCategory, selectedYear, searchQuery]);
 
   const [showAll, setShowAll] = useState(false);
@@ -101,125 +121,79 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
 
   return (
     <div id="directory" className="w-full">
-      {/* 1. CATALOGUES DOWNLOAD BAR (Shelf of PDFs) */}
-      <div className="mb-16 border border-border bg-warm-gray/20 p-6 md:p-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
-          <div>
-            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted block mb-1">
-              Official Documentation
-            </span>
-            <h3 className="text-xl md:text-2xl font-serif italic text-foreground">
-              Collection Catalogues
-            </h3>
-          </div>
-          <span className="text-xs text-muted font-mono">
-            {catalogues.length} Catalogues &middot; {projects.length} Documented Works
-          </span>
+      {/* 1. QUICK-FILTER STRIP — catalogue as filter shortcuts */}
+      <div className="mb-10 flex flex-col gap-3">
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted">Filter by Catalogue</span>
+          <span className="text-[10px] font-mono text-muted">{catalogues.length} Catalogues · {projects.length} Works</span>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
           {catalogues.map((cat) => {
             const isSelected = selectedArtist === cat.artistSlug && (selectedCategory === 'all' || selectedCategory === cat.category);
             return (
-              <div
+              <button
                 key={cat.id}
-                className={`flex flex-col justify-between p-4 border transition-all ${
-                  isSelected 
-                    ? 'border-accent-olive bg-background shadow-sm' 
-                    : 'border-border/60 bg-background/60 hover:border-foreground/30'
+                onClick={() => {
+                  if (isSelected && selectedCategory === cat.category) {
+                    setSelectedArtist('all');
+                    setSelectedCategory('all');
+                  } else {
+                    setSelectedArtist(cat.artistSlug);
+                    setSelectedCategory(cat.category);
+                  }
+                }}
+                aria-pressed={isSelected}
+                className={`text-left p-3 border text-xs transition-all ${
+                  isSelected
+                    ? 'border-accent-olive bg-accent-olive/10 text-foreground'
+                    : 'border-border/60 hover:border-foreground/30 text-muted hover:text-foreground'
                 }`}
               >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-muted">
-                      {cat.period}
-                    </span>
-                    <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 bg-warm-gray/40 text-foreground/80 rounded">
-                      {cat.worksCount} Works
-                    </span>
-                  </div>
-                  <h4 className="text-sm font-serif italic font-semibold text-foreground leading-snug mb-1">
-                    {cat.artist}
-                  </h4>
-                  <p className="text-[11px] text-muted line-clamp-2 leading-relaxed mb-4">
-                    {cat.title}
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2 pt-3 border-t border-border/40">
-                  <a
-                    href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + cat.title)}`}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-1.5 px-3 bg-[#1A1A1A] hover:bg-black text-[#F8F7F4] text-[10px] font-mono uppercase tracking-wider transition-colors"
-                  >
-                    <Mail size={11} />
-                    <span>Request</span>
-                  </a>
-                  <button
-                    onClick={() => {
-                      if (isSelected && selectedCategory === cat.category) {
-                        setSelectedArtist('all');
-                        setSelectedCategory('all');
-                      } else {
-                        setSelectedArtist(cat.artistSlug);
-                        setSelectedCategory(cat.category);
-                      }
-                    }}
-                    className={`py-1.5 px-3 text-[10px] font-mono uppercase tracking-wider border transition-colors ${
-                      isSelected
-                        ? 'border-accent-olive text-accent-olive bg-accent-olive/10 font-bold'
-                        : 'border-border hover:border-foreground/40 text-muted'
-                    }`}
-                  >
-                    {isSelected ? 'Viewing' : 'Filter'}
-                  </button>
-                </div>
-              </div>
+                <span className="text-[9px] font-mono uppercase tracking-widest block mb-0.5 opacity-70">{cat.period}</span>
+                <span className="font-serif italic text-sm block leading-tight">{cat.artist.split(' ')[0]}</span>
+                <span className="text-[9px] font-mono block mt-0.5 truncate">{cat.title}</span>
+                {cat.id === 'ozuwo-enifome-humanised-landscape' && (
+                  <span className="text-[8px] text-accent-olive/70 font-mono block mt-1">companion pub.</span>
+                )}
+              </button>
             );
           })}
         </div>
       </div>
 
-      {/* 2. FILTER CONTROLS BAR */}
-      <div className="sticky top-14 sm:top-16 md:top-20 z-30 bg-background/95 backdrop-blur-md border-y border-border py-3 sm:py-4 mb-8 sm:mb-10">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          
-          {/* Artist Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-muted hidden md:inline-block mr-2">
-              Artist:
-            </span>
-            <button
-              onClick={() => setSelectedArtist('all')}
-              className={`px-3 py-1.5 text-xs font-mono uppercase tracking-wider whitespace-nowrap transition-colors rounded-full ${
-                selectedArtist === 'all'
-                  ? 'bg-foreground text-background font-bold'
-                  : 'bg-warm-gray/40 text-muted hover:text-foreground'
-              }`}
-            >
-              All ({projects.length})
-            </button>
-            {artists.map((artist) => (
+      {/* 2. FILTER CONTROLS TOOLBAR */}
+      <div className="sticky top-14 sm:top-16 md:top-20 z-30 bg-background/95 backdrop-blur-md border-y border-border py-4 mb-8 sm:mb-10 space-y-3">
+        {/* Top Toolbar: Prominent Search + Medium + Year + View Mode */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          {/* Prominent Search Field */}
+          <div className="relative flex-1 max-w-md">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
+            <input
+              type="text"
+              placeholder="Search by title, medium, year, or reference (e.g. KA-01)..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-warm-gray/30 border border-border/80 rounded pl-9 pr-8 py-2 text-xs font-sans text-foreground placeholder:text-muted/60 focus:outline-hidden focus:border-foreground transition-colors"
+            />
+            {searchQuery && (
               <button
-                key={artist.slug}
-                onClick={() => setSelectedArtist(artist.slug)}
-                className={`px-3 py-1.5 text-xs font-mono uppercase tracking-wider whitespace-nowrap transition-colors rounded-full ${
-                  selectedArtist === artist.slug
-                    ? 'bg-foreground text-background font-bold'
-                    : 'bg-warm-gray/40 text-muted hover:text-foreground'
-                }`}
+                onClick={() => setSearchQuery('')}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
+                aria-label="Clear search"
               >
-                {artist.name.split(' ')[0]} ({artist.worksCount})
+                <X size={13} />
               </button>
-            ))}
+            )}
           </div>
 
-          {/* Medium, Search, and View Controls */}
-          <div className="flex flex-wrap items-center gap-3">
+          {/* Medium, Year, and View Toggles */}
+          <div className="flex flex-wrap items-center gap-2.5">
             {/* Medium Selector */}
             <div className="flex items-center bg-warm-gray/30 rounded p-1 border border-border/60">
               <button
                 onClick={() => setSelectedCategory('all')}
-                className={`px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider rounded ${
+                aria-pressed={selectedCategory === 'all'}
+                className={`px-3 py-1 text-[11px] font-mono uppercase tracking-wider rounded transition-colors ${
                   selectedCategory === 'all' ? 'bg-background text-foreground shadow-xs font-bold' : 'text-muted hover:text-foreground'
                 }`}
               >
@@ -227,7 +201,8 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
               </button>
               <button
                 onClick={() => setSelectedCategory('painting')}
-                className={`px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider rounded ${
+                aria-pressed={selectedCategory === 'painting'}
+                className={`px-3 py-1 text-[11px] font-mono uppercase tracking-wider rounded transition-colors ${
                   selectedCategory === 'painting' ? 'bg-background text-foreground shadow-xs font-bold' : 'text-muted hover:text-foreground'
                 }`}
               >
@@ -235,7 +210,8 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
               </button>
               <button
                 onClick={() => setSelectedCategory('photography')}
-                className={`px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider rounded ${
+                aria-pressed={selectedCategory === 'photography'}
+                className={`px-3 py-1 text-[11px] font-mono uppercase tracking-wider rounded transition-colors ${
                   selectedCategory === 'photography' ? 'bg-background text-foreground shadow-xs font-bold' : 'text-muted hover:text-foreground'
                 }`}
               >
@@ -247,7 +223,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
             <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(e.target.value)}
-              className="bg-warm-gray/30 border border-border/60 rounded px-2.5 py-1.5 text-xs font-mono text-foreground focus:outline-hidden"
+              className="bg-warm-gray/30 border border-border/60 rounded px-3 py-1.5 text-xs font-mono text-foreground focus:outline-hidden"
               aria-label="Filter by year"
             >
               <option value="all">All Years</option>
@@ -258,30 +234,12 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
               ))}
             </select>
 
-            {/* Search Input */}
-            <div className="relative flex-1 sm:w-48">
-              <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" />
-              <input
-                type="text"
-                placeholder="Search works..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-warm-gray/30 border border-border/60 rounded pl-8 pr-7 py-1.5 text-xs font-sans text-foreground placeholder:text-muted/60 focus:outline-hidden focus:border-foreground/40"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
-                >
-                  <X size={12} />
-                </button>
-              )}
-            </div>
-
             {/* View Mode Toggle */}
-            <div className="hidden sm:flex items-center gap-1 border-l border-border/60 pl-3">
+            <div className="hidden sm:flex items-center gap-1 border-l border-border/60 pl-2.5">
               <button
                 onClick={() => setViewMode('grid')}
+                aria-label="Grid View"
+                aria-pressed={viewMode === 'grid'}
                 className={`p-1.5 rounded transition-colors ${
                   viewMode === 'grid' ? 'bg-foreground text-background' : 'text-muted hover:text-foreground'
                 }`}
@@ -291,6 +249,8 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
               </button>
               <button
                 onClick={() => setViewMode('table')}
+                aria-label="Table Index View"
+                aria-pressed={viewMode === 'table'}
                 className={`p-1.5 rounded transition-colors ${
                   viewMode === 'table' ? 'bg-foreground text-background' : 'text-muted hover:text-foreground'
                 }`}
@@ -299,8 +259,39 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
                 <List size={14} />
               </button>
             </div>
-
           </div>
+        </div>
+
+        {/* Bottom Toolbar: Artist Selector Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-1 scrollbar-none border-t border-border/40">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-muted hidden md:inline-block mr-1">
+            Artist:
+          </span>
+          <button
+            onClick={() => setSelectedArtist('all')}
+            aria-pressed={selectedArtist === 'all'}
+            className={`px-3 py-1.5 text-xs font-mono uppercase tracking-wider whitespace-nowrap transition-colors rounded-full ${
+              selectedArtist === 'all'
+                ? 'bg-foreground text-background font-bold'
+                : 'bg-warm-gray/40 text-muted hover:text-foreground'
+            }`}
+          >
+            All Artists ({projects.length})
+          </button>
+          {artists.map((artist) => (
+            <button
+              key={artist.slug}
+              onClick={() => setSelectedArtist(artist.slug)}
+              aria-pressed={selectedArtist === artist.slug}
+              className={`px-3 py-1.5 text-xs font-mono uppercase tracking-wider whitespace-nowrap transition-colors rounded-full ${
+                selectedArtist === artist.slug
+                  ? 'bg-foreground text-background font-bold'
+                  : 'bg-warm-gray/40 text-muted hover:text-foreground'
+              }`}
+            >
+              {artist.name} ({artist.worksCount})
+            </button>
+          ))}
         </div>
 
         {/* Active Filter Notice */}
@@ -379,10 +370,10 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
               <div className="relative aspect-[4/3] bg-warm-gray/20 overflow-hidden cursor-pointer">
                 <Image
                   src={project.image}
-                  alt={project.title}
+                  alt={`${project.title} by ${project.artist} — ${project.description}`}
                   fill
                   className="object-contain p-4 group-hover:scale-[1.03] transition-slow"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
 
                 {/* Top overlay pills */}
@@ -428,19 +419,23 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-border/50 flex flex-col gap-2 text-[11px] text-muted font-mono">
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] uppercase text-muted/70">Medium</span>
-                    <span className="text-foreground truncate max-w-[65%] text-right" title={project.medium}>
-                      {project.medium}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] uppercase text-muted/70">Dimensions</span>
-                    <span className="text-foreground">{project.dimensions}</span>
-                  </div>
+                <div className="pt-3 border-t border-border/50 flex flex-col gap-2.5">
+                  <dl className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-[11px] font-mono">
+                    <div>
+                      <dt className="text-[9px] uppercase tracking-wider text-muted/70">Medium</dt>
+                      <dd className="text-foreground truncate mt-0.5" title={project.medium}>
+                        {project.medium}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-[9px] uppercase tracking-wider text-muted/70">Dimensions</dt>
+                      <dd className="text-foreground truncate mt-0.5">
+                        {project.dimensions}
+                      </dd>
+                    </div>
+                  </dl>
 
-                  <div className="flex items-center justify-between pt-2 mt-1 border-t border-border/30">
+                  <div className="flex items-center justify-between pt-2 border-t border-border/30">
                     <Link
                       href={`/work/${project.id}`}
                       className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-foreground hover:text-accent-olive font-semibold transition-colors"
@@ -448,8 +443,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
                       <span>Examine Work</span>
                       <ArrowRight size={11} />
                     </Link>
-
-                    
+                    <span className="text-[9px] font-mono text-muted/60">{project.year}</span>
                   </div>
                 </div>
 
@@ -484,7 +478,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
                     >
                       <Image
                         src={project.image}
-                        alt={project.title}
+                        alt={`${project.title} by ${project.artist} — ${project.description}`}
                         fill
                         className="object-contain p-1"
                         sizes="48px"

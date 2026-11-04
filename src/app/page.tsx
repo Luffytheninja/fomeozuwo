@@ -125,7 +125,7 @@ export default function HomePage() {
             <motion.div
               key={currentSlide}
               initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 0.52, scale: 1 }}
+              animate={{ opacity: 0.78, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
               className="absolute inset-0 w-full h-full"
@@ -141,13 +141,13 @@ export default function HomePage() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Vignette Gradients for razor-sharp Swiss typographic contrast */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#151515] via-[#151515]/60 to-black/75" />
-          <div className="absolute inset-0 bg-radial-[at_center_center] from-transparent via-black/30 to-black/70" />
+          {/* Directional gradients — heavy on left+bottom where text sits, transparent elsewhere */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#151515] via-[#151515]/25 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#151515]/85 via-[#151515]/30 to-transparent" />
         </motion.div>
 
         {/* Minimalist Slide Navigation Dots (aesthetic gallery touch) */}
-        <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-10 z-20 flex items-center gap-1.5 pointer-events-auto">
+        <div className="absolute bottom-6 right-4 sm:bottom-8 sm:right-8 md:right-12 z-20 flex items-center gap-1.5 pointer-events-auto">
           {HERO_SLIDES.map((_, idx) => (
             <button
               key={idx}
@@ -163,7 +163,7 @@ export default function HomePage() {
         {/* Hero Content: Pure Swiss copy without clutter */}
         <motion.div
           style={{ opacity: heroTextOpacity }}
-          className="relative z-10 w-full px-5 sm:px-8 md:px-14 lg:px-20 pt-28 sm:pt-32 md:pt-36 pb-16 flex flex-col justify-center"
+          className="relative z-10 max-w-[1600px] mx-auto w-full px-4 sm:px-8 md:px-12 pb-20 sm:pb-24 md:pb-28 flex flex-col justify-end min-h-[100svh] pt-24 sm:pt-32"
         >
           <div className="max-w-3xl">
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-editorial-serif italic font-light tracking-tight text-[#F8F7F4] leading-[1.12] sm:leading-[1.15] mb-5 sm:mb-6">
@@ -171,9 +171,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-xs sm:text-sm md:text-base font-sans font-light tracking-wide text-white/80 max-w-2xl leading-relaxed mb-8 md:mb-10">
-              Curated holdings and early student patronage spanning Kelani Abass, Muyiwa Akinwolere, 
-              Johnson Babatunde Shobowale, and the photographic works of Ozuwo Enifome. 
-              Preserved with dedicated gallery catalogues and provenance records.
+              Paintings, photography and mixed media acquired directly from the studio — spanning Kelani Abass, Muyiwa Akinwolere, Johnson Babatunde Shobowale, and the artist's own practice. Documented in six gallery catalogues with full provenance records.
             </p>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
@@ -189,8 +187,8 @@ export default function HomePage() {
                 onClick={scrollToCatalogues}
                 className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 border border-white/40 hover:border-white hover:bg-white/10 text-[#F8F7F4] text-xs font-mono uppercase tracking-[0.16em] font-medium transition-all backdrop-blur-xs"
               >
-                <ArrowDown size={13} />
-                <span>Explore Catalogues</span>
+                <span>View Catalogues</span>
+                <ArrowRight size={13} />
               </button>
             </div>
           </div>
@@ -198,14 +196,14 @@ export default function HomePage() {
       </section>
 
       {/* Main Content Wrapper (Optimized for Mobile & Wide Screens) */}
-      <div className="px-4 sm:px-6 md:px-12 max-w-[1600px] mx-auto w-full">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-8 md:px-12 w-full">
         {/* 2. CATALOGUE SUITES (Curated Collections Shelf) */}
         <section id="catalogues" className="py-20 sm:py-24 md:py-32 border-b border-border">
           <div className="max-w-2xl mb-12 sm:mb-16">
             <span className="text-editorial-meta mb-3 block">Curated Portfolios</span>
             <h2 className="text-display-medium mb-4">Six Gallery Catalogues</h2>
             <p className="text-sm text-muted leading-relaxed">
-              Each holding in the Ozuwo Enifome Collection is documented through a formal gallery catalogue — detailing provenance, artist biography, exhibition history, and technical notes. Catalogues are available on request.
+              Ozuwo Enifome has assembled a documented private collection spanning over a decade of direct patronage and his own studio practice across painting and photography. Each body of work is presented through a formal gallery catalogue.
             </p>
           </div>
 
@@ -222,7 +220,7 @@ export default function HomePage() {
                       alt={cat.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-slow"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1400px) 33vw, 400px"
                     />
                     <div className="absolute top-2 right-2 px-2 py-0.5 bg-background/90 text-foreground font-mono text-[9px] uppercase border border-border/60">
                       {cat.period}
@@ -241,9 +239,15 @@ export default function HomePage() {
                     {cat.title}
                   </h4>
 
-                  <p className="text-xs text-muted leading-relaxed line-clamp-3 mb-6">
+                  <p className="text-xs text-muted leading-relaxed line-clamp-3 mb-2">
                     {cat.curatorialSummary}
                   </p>
+                  {cat.id === 'ozuwo-enifome-humanised-landscape' && (
+                    <p className="text-[10px] font-mono text-accent-olive/80 italic mb-4">
+                      Companion publication — the same 12 photographs are also documented in <em>The Art of Everyday Life</em> catalogue.
+                    </p>
+                  )}
+                  {cat.id !== 'ozuwo-enifome-humanised-landscape' && <div className="mb-6" />}
                 </div>
 
                 <div className="pt-4 border-t border-border/60 space-y-3">
@@ -254,20 +258,20 @@ export default function HomePage() {
 
                   <div className="flex items-center gap-2 pt-2">
                     <a
-                      href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: " + cat.title)}`}
-                      className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-mono uppercase tracking-wider border border-foreground/30 text-foreground hover:bg-foreground hover:text-background transition-colors flex-1 justify-center sm:justify-start"
+                      href="#enquiry"
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-[11px] font-mono uppercase tracking-wider border border-foreground/30 text-foreground hover:bg-foreground hover:text-background transition-colors flex-1"
                     >
                       <Mail size={12} />
-                      <span>Request Catalogue</span>
+                      <span>Request Dossier</span>
                     </a>
 
                     <Link
-                      href={cat.category === 'painting' ? '/painting' : '/photography'}
-                      className="p-2 border border-border hover:border-foreground/60 transition-colors text-foreground shrink-0"
-                      title="View collection page"
-                      aria-label={`View ${cat.artist} collection`}
+                      href={cat.category === 'painting' ? `/painting?artist=${cat.artistSlug}` : '/photography'}
+                      className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-[11px] font-mono uppercase tracking-wider bg-foreground text-background hover:bg-accent-olive hover:text-white transition-colors"
+                      title={`Explore ${cat.artist} works`}
                     >
-                      <ArrowRight size={14} />
+                      <span>Explore</span>
+                      <ArrowRight size={12} />
                     </Link>
                   </div>
                 </div>

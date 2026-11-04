@@ -63,19 +63,19 @@ export default function PhotographyPage() {
         {/* Catalogue & Inquiry Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
           <a
-            href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: Humanised Landscape Gallery Catalogue")}`}
-            className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/30 text-white hover:bg-white/10 text-xs font-mono uppercase tracking-wider transition-colors group"
+            href="#enquiry"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-background hover:bg-accent-olive hover:text-white text-xs font-mono uppercase tracking-wider transition-colors"
           >
-            <Mail size={15} className="group-hover:translate-y-0.5 transition-transform" />
+            <Mail size={14} />
             <span>Request Gallery Catalogue</span>
           </a>
 
           <a
-            href={`mailto:${photographyCatalogue.contactEmail}?subject=Acquisition%20Inquiry%3A%20The%20Art%20of%20Everyday%20Life`}
-            className="inline-flex items-center gap-2 px-6 py-3 border border-border hover:border-foreground/60 transition-editorial text-foreground font-medium tracking-wide"
+            href="#collectors"
+            className="inline-flex items-center gap-2 px-6 py-2.5 border border-border hover:border-foreground/60 transition-editorial text-foreground font-mono text-xs uppercase tracking-wider"
           >
-            <Mail size={15} />
-            <span>Inquire on Collection</span>
+            <span>Collector Enquiries</span>
+            <ArrowRight size={13} />
           </a>
         </div>
       </header>
@@ -355,7 +355,7 @@ function ArtworkCard({ project, onOpenLightbox, isFeatured }: ArtworkCardProps) 
       >
         <Image
           src={project.image}
-          alt={project.title}
+          alt={`${project.title} by ${project.artist} — ${project.description}`}
           fill
           className="object-contain p-6 md:p-10 transition-slow group-hover:scale-[1.02]"
           sizes="(max-width: 768px) 100vw, 50vw"

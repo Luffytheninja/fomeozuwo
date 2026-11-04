@@ -3,6 +3,7 @@ import { Inter, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import { SmoothScroll } from '@/components/SmoothScroll';
 import { Navbar } from '@/components/Navbar';
+import { Footer } from '@/components/Footer';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -28,9 +29,9 @@ export const metadata: Metadata = {
     default: 'EOE — Private Archive',
   },
   description:
-    'The private archive of Enifome Ozuwo (EOE). Visual Artist working across painting and photography, exploring light, memory, and spatial narratives.',
+    'The documented private collection of Ozuwo Enifome — paintings, photography and mixed media acquired directly from the studio across four artists, presented with gallery catalogues and provenance records.',
   keywords: [
-    'Enifome Ozuwo',
+    'Ozuwo Enifome',
     'EOE art',
     'Lagos contemporary artist',
     'oil paintings Lagos',
@@ -38,12 +39,15 @@ export const metadata: Metadata = {
     'private art archive',
     'contemporary African painter'
   ],
-  metadataBase: new URL('https://eoe.brand'),
+  metadataBase: new URL('https://fomeozuwo.vercel.app'),
+  alternates: {
+    canonical: 'https://fomeozuwo.vercel.app',
+  },
   openGraph: {
-    title: 'EOE | Private Archive',
-    description: 'The private archive of Enifome Ozuwo (EOE). Visual Artist working across painting and photography.',
+    title: 'EOE — Private Archive',
+    description: 'The documented private collection of Ozuwo Enifome. Paintings, photography and mixed media — four artists, six gallery catalogues.',
     type: 'website',
-    url: 'https://eoe.brand',
+    url: 'https://fomeozuwo.vercel.app',
     locale: 'en_NG',
     images: [
       {
@@ -57,7 +61,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'EOE — Private Archive',
-    description: 'The private archive of Enifome Ozuwo (EOE). Visual Artist working across painting and photography.',
+    description: 'The documented private collection of Ozuwo Enifome. Paintings, photography and mixed media — four artists, six gallery catalogues.',
     images: ['/og-image.png'],
   },
 };
@@ -75,6 +79,7 @@ export default function RootLayout({
         <Navbar />
         <SmoothScroll>
           <main>{children}</main>
+          <Footer />
         </SmoothScroll>
       </body>
     </html>

@@ -46,12 +46,13 @@ export function Navbar() {
     <>
       {/* Modern Swiss Glass Header */}
       <header
-        className={`fixed top-0 left-0 w-full z-50 px-4 sm:px-8 md:px-12 py-3.5 sm:py-4 md:py-5 flex justify-between items-center transition-all duration-500 ${
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           isHeroLight
-            ? 'bg-[#F8F7F4]/80 backdrop-blur-xl border-b border-border/80 text-[#1A1A1A] shadow-xs'
-            : 'bg-black/35 backdrop-blur-xl border-b border-white/10 text-[#F8F7F4]'
+            ? 'bg-[#F8F7F4]/90 backdrop-blur-xl border-b border-border/80 text-[#1A1A1A] shadow-xs'
+            : 'bg-black/45 backdrop-blur-xl border-b border-white/10 text-[#F8F7F4]'
         }`}
       >
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-8 md:px-12 py-3.5 sm:py-4 md:py-5 flex justify-between items-center w-full">
         {/* Brand / Logo */}
         <div>
           <Link
@@ -91,8 +92,8 @@ export function Navbar() {
                       ? 'text-[#1A1A1A] font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-[#1A1A1A]'
                       : 'text-white font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-white'
                     : isHeroLight
-                    ? 'text-muted hover:text-[#1A1A1A]'
-                    : 'text-white/70 hover:text-white'
+                    ? 'text-[#1A1A1A]/85 hover:text-[#1A1A1A] font-medium'
+                    : 'text-white/85 hover:text-white font-medium'
                 }`}
               >
                 {link.label}
@@ -100,17 +101,23 @@ export function Navbar() {
             );
           })}
 
-          {/* Swiss Glass Action Button */}
-          <button
-            onClick={scrollToContact}
+          {/* Swiss Glass Action Link */}
+          <Link
+            href="/#collectors"
+            onClick={(e) => {
+              if (pathname === '/') {
+                e.preventDefault();
+                document.getElementById('collectors')?.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
             className={`text-[10px] font-mono uppercase tracking-[0.2em] font-medium px-4 py-2 border transition-all duration-300 ${
               isHeroLight
-                ? 'border-foreground/30 text-foreground hover:bg-foreground hover:text-background'
-                : 'border-white/30 text-white hover:bg-white hover:text-[#151515]'
+                ? 'border-foreground/40 text-foreground hover:bg-foreground hover:text-background'
+                : 'border-white/40 text-white hover:bg-white hover:text-[#151515]'
             }`}
           >
             Contact
-          </button>
+          </Link>
         </nav>
 
         {/* Mobile Menu Toggle Button */}
@@ -123,6 +130,7 @@ export function Navbar() {
         >
           {isOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
+        </div>
       </header>
 
       {/* Mobile Menu Overlay: Swiss Glass Aesthetic */}
@@ -174,21 +182,21 @@ export function Navbar() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: navLinks.length * 0.06, ease: [0.25, 1, 0.5, 1] }}
               >
-                <button
-                  onClick={() => {
+                <Link
+                  href="/#collectors"
+                  onClick={(e) => {
                     setIsOpen(false);
                     if (pathname === '/') {
+                      e.preventDefault();
                       setTimeout(() => {
                         document.getElementById('collectors')?.scrollIntoView({ behavior: 'smooth' });
                       }, 300);
-                    } else {
-                      router.push('/#collectors');
                     }
                   }}
                   className="text-3xl sm:text-4xl font-editorial-serif font-light text-accent-olive italic text-left"
                 >
                   Contact
-                </button>
+                </Link>
               </motion.div>
             </nav>
 
