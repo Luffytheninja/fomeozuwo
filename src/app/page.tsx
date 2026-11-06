@@ -171,7 +171,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-xs sm:text-sm md:text-base font-sans font-light tracking-wide text-white/80 max-w-2xl leading-relaxed mb-8 md:mb-10">
-              Paintings, photography and mixed media acquired directly from the studio — spanning Kelani Abass, Muyiwa Akinwolere, Johnson Babatunde Shobowale, and the artist's own practice. Documented in six gallery catalogues with full provenance records.
+              Paintings, photography and mixed media acquired directly from the studio — spanning Kelani Abass, Muyiwa Akinwolere, Johnson Babatunde Shobowale, and the artist's own practice. Documented in five gallery catalogues with full provenance records.
             </p>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
@@ -201,7 +201,7 @@ export default function HomePage() {
         <section id="catalogues" className="py-20 sm:py-24 md:py-32 border-b border-border">
           <div className="max-w-2xl mb-12 sm:mb-16">
             <span className="text-editorial-meta mb-3 block">Curated Portfolios</span>
-            <h2 className="text-display-medium mb-4">Six Gallery Catalogues</h2>
+            <h2 className="text-display-medium mb-4">Five Gallery Catalogues</h2>
             <p className="text-sm text-muted leading-relaxed">
               Ozuwo Enifome has assembled a documented private collection spanning over a decade of direct patronage and his own studio practice across painting and photography. Each body of work is presented through a formal gallery catalogue.
             </p>
@@ -242,12 +242,7 @@ export default function HomePage() {
                   <p className="text-xs text-muted leading-relaxed line-clamp-3 mb-2">
                     {cat.curatorialSummary}
                   </p>
-                  {cat.id === 'ozuwo-enifome-humanised-landscape' && (
-                    <p className="text-[10px] font-mono text-accent-olive/80 italic mb-4">
-                      Companion publication — the same 12 photographs are also documented in <em>The Art of Everyday Life</em> catalogue.
-                    </p>
-                  )}
-                  {cat.id !== 'ozuwo-enifome-humanised-landscape' && <div className="mb-6" />}
+                  <div className="mb-6" />
                 </div>
 
                 <div className="pt-4 border-t border-border/60 space-y-3">
@@ -286,7 +281,7 @@ export default function HomePage() {
             <span className="text-editorial-meta mb-3 block">Complete Archive</span>
             <h2 className="text-display-medium mb-4">Collection Directory</h2>
             <p className="text-sm text-muted leading-relaxed">
-              Explore the entire inventory of <strong className="text-foreground">{projects.length}</strong> authenticated works across all six catalogues. Filter by artist, medium, or year — or request the corresponding curatorial publication directly.
+              Explore the entire inventory of <strong className="text-foreground">{projects.length}</strong> authenticated works across all five catalogues. Filter by artist, medium, or year — or request the corresponding curatorial publication directly.
             </p>
           </div>
 

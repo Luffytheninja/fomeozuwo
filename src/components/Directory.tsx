@@ -127,7 +127,7 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
           <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted">Filter by Catalogue</span>
           <span className="text-[10px] font-mono text-muted">{catalogues.length} Catalogues · {projects.length} Works</span>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
           {catalogues.map((cat) => {
             const isSelected = selectedArtist === cat.artistSlug && (selectedCategory === 'all' || selectedCategory === cat.category);
             return (
@@ -152,9 +152,6 @@ export function Directory({ initialArtist = 'all', initialCategory = 'all' }: Di
                 <span className="text-[9px] font-mono uppercase tracking-widest block mb-0.5 opacity-70">{cat.period}</span>
                 <span className="font-serif italic text-sm block leading-tight">{cat.artist.split(' ')[0]}</span>
                 <span className="text-[9px] font-mono block mt-0.5 truncate">{cat.title}</span>
-                {cat.id === 'ozuwo-enifome-humanised-landscape' && (
-                  <span className="text-[8px] text-accent-olive/70 font-mono block mt-1">companion pub.</span>
-                )}
               </button>
             );
           })}

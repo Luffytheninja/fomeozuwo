@@ -160,37 +160,20 @@ export const catalogues: Catalogue[] = [
     artist: 'Ozuwo Enifome',
     artistSlug: 'ozuwo-enifome',
     title: 'The Art of Everyday Life',
-    subtitle: 'Fine Art & Documentary Photography',
-    alias: 'Humanised Landscape',
+    subtitle: 'Fine Art & Documentary Photography Catalogue',
     period: '2016–2020',
     category: 'photography',
     worksCount: 12,
     contactEmail: 'fomeozuwobss@gmail.com',
     editionPolicy: 'Unique 1/1 physical-print editions with Certificate of Authenticity and Object Record',
     coverImage: '/images/photography/art-of-everyday-life/OE-PH010_face-to-face-conversation.webp',
-    curatorialSummary: 'Twelve humane encounters across labour, belonging, solitude, companionship, and hope in urban and coastal Nigeria.'
-  },
-  {
-    id: 'ozuwo-enifome-humanised-landscape',
-    artist: 'Ozuwo Enifome',
-    artistSlug: 'ozuwo-enifome',
-    title: 'Humanised Landscape',
-    subtitle: 'Gallery Catalogue & Curatorial Dossier',
-    alias: 'The Lives Within the Frame',
-    period: '2016–2020',
-    category: 'photography',
-    worksCount: 12,
-    contactEmail: 'fomeozuwobss@gmail.com',
-    editionPolicy: 'Unique 1/1 physical-print editions with Certificate of Authenticity and Object Record',
-    coverImage: '/images/photography/art-of-everyday-life/OE-PH009_light-at-the-end-of-the-tunnel.webp',
-    curatorialSummary: 'International gallery catalogue and comprehensive curatorial dossier examining urban rhythms, coastal resilience, and human geometry in Lagos.'
+    curatorialSummary: 'Twelve humane encounters across labour, belonging, solitude, companionship, and hope in urban and coastal Nigeria, documented in Ozuwo Enifome’s official photography catalogue.'
   }
 ];
 
 export const photographyCatalogue = {
   title: 'The Art of Everyday Life',
   subtitle: 'Fine Art & Documentary Photography',
-  alias: 'Humanised Landscape',
   artist: 'Ozuwo Enifome',
   period: '2016–2020',
   contactEmail: 'fomeozuwobss@gmail.com',

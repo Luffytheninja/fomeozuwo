@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'EOE — Private Archive',
-    description: 'The documented private collection of Ozuwo Enifome. Paintings, photography and mixed media — four artists, six gallery catalogues.',
+    description: 'The documented private collection of Ozuwo Enifome. Paintings, photography and mixed media — four artists, five gallery catalogues.',
     type: 'website',
     url: 'https://fomeozuwo.vercel.app',
     locale: 'en_NG',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'EOE — Private Archive',
-    description: 'The documented private collection of Ozuwo Enifome. Paintings, photography and mixed media — four artists, six gallery catalogues.',
+    description: 'The documented private collection of Ozuwo Enifome. Paintings, photography and mixed media — four artists, five gallery catalogues.',
     images: ['/og-image.png'],
   },
 };

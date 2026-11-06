@@ -67,7 +67,7 @@ export default function PhotographyPage() {
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-background hover:bg-accent-olive hover:text-white text-xs font-mono uppercase tracking-wider transition-colors"
           >
             <Mail size={14} />
-            <span>Request Gallery Catalogue</span>
+            <span>Request Photography Catalogue</span>
           </a>
 
           <a
@@ -116,7 +116,7 @@ export default function PhotographyPage() {
                     <p key={i}>{para}</p>
                   ))}
                   <div className="pt-4 border-t border-border/40 text-[11px] font-mono text-muted/70">
-                    Extracted from the official exhibition catalogue &middot; Humanised Landscape
+                    Extracted from the official catalogue &middot; Ozuwo Enifome Photography Catalogue
                   </div>
                 </motion.div>
               )}
@@ -289,11 +289,11 @@ export default function PhotographyPage() {
               </h3>
             </div>
             <a
-            href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: Humanised Landscape Gallery Catalogue")}`}
+            href={`mailto:fomeozuwobss@gmail.com?subject=${encodeURIComponent("Catalogue Request: Ozuwo Enifome Photography Catalogue")}`}
             className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/30 text-white hover:bg-white/10 text-xs font-mono uppercase tracking-wider transition-colors group"
           >
             <Mail size={15} className="group-hover:translate-y-0.5 transition-transform" />
-            <span>Request Gallery Catalogue</span>
+            <span>Request Photography Catalogue</span>
           </a>
           </div>
 
